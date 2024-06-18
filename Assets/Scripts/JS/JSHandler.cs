@@ -75,11 +75,10 @@ public class JSHandler : MonoBehaviour
         if(isFullScreen)
         {
             ForceFullScreen();
-            Debug.Log("Is Fullscreen: " + isFullScreen);
         }
         else
         {
-            Debug.Log("Is not Fullscreen: " + isFullScreen);
+
         }
 #endif
     }
