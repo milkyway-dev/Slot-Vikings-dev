@@ -4451,8 +4451,8 @@ MonoBehaviour:
   slotManager: {fileID: 2046803210}
   bonusdata: []
   _jsManager: {fileID: 500036493}
-  SocketURI: https://game-crm-rtp-backend-newbranch.onrender.com
-  testToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBsYXllcjEiLCJkZXNpZ25hdGlvbiI6InBsYXllciIsImlhdCI6MTcxODg2MDM1OCwiZXhwIjoxNzE5NDY1MTU4fQ.XEB2eUjoKb-Z0HLxlao8g3_-r8MIlKpKTrZvHjDELbo
+  SocketURI: https://game-crm-rtp-backend-newbranch.onrender.com/
+  testToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBsYXllcjEiLCJkZXNpZ25hdGlvbiI6InBsYXllciIsImlhdCI6MTcxOTA1NDQxNSwiZXhwIjoxNzE5NjU5MjE1fQ.2xX1IHij5-UKif02mwHxEpEviGicN7IU3ImjlQMVO6A
 --- !u!114 &500036493
 MonoBehaviour:
   m_ObjectHideFlags: 0
