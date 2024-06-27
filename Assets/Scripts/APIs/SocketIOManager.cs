@@ -38,6 +38,13 @@ public class SocketIOManager : MonoBehaviour
 
     protected string gameID = "SL-VIK";
 
+
+    private void Awake()
+    {
+        Debug.Log("Application is loaded");
+        Application.ExternalCall("window.parent.postMessage", "OnEnter", "*");
+    }
+
     private void Start()
     {
         //OpenWebsocket();
@@ -110,9 +117,11 @@ public class SocketIOManager : MonoBehaviour
         // Wait until myAuth is not null
         while (myAuth == null)
         {
+            Debug.Log("My Auth is null");
             yield return null;
         }
 
+        Debug.Log("My Auth is not null");
         // Once myAuth is set, configure the authFunction
         Func<SocketManager, Socket, object> authFunction = (manager, socket) =>
         {
@@ -251,7 +260,7 @@ public class SocketIOManager : MonoBehaviour
 
         slotManager.SetInitialUI();
 
-        Application.ExternalCall("window.parent.postMessage", "OnEnter", "*");
+        //Application.ExternalCall("window.parent.postMessage", "OnEnter", "*");
     }
 
     internal void AccumulateResult(double currBet)
