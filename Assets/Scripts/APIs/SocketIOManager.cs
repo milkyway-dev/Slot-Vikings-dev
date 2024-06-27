@@ -62,24 +62,24 @@ public class SocketIOManager : MonoBehaviour
         Application.ExternalCall("window.parent.postMessage", "authToken", "*");
 
 #if UNITY_WEBGL && !UNITY_EDITOR
-        //_jsManager.RetrieveAuthToken("token", authToken =>
-        //{
-        //    if (!string.IsNullOrEmpty(authToken))
-        //    {
-        //        Debug.Log("Auth token is " + authToken);
-        //        Func<SocketManager, Socket, object> authFunction = (manager, socket) =>
-        //        {
-        //            return new
-        //            {
-        //                token = authToken
-        //            };
-        //        };
-        //        options.Auth = authFunction;
-        //        // Proceed with connecting to the server
-        //        SetupSocketManager(options);
-        //    }
-        //    else
-        //    {
+        _jsManager.RetrieveAuthToken("token", authToken =>
+        {
+            if (!string.IsNullOrEmpty(authToken))
+            {
+                Debug.Log("Auth token is " + authToken);
+                Func<SocketManager, Socket, object> authFunction = (manager, socket) =>
+                {
+                    return new
+                    {
+                        token = authToken
+                    };
+                };
+                options.Auth = authFunction;
+                // Proceed with connecting to the server
+                SetupSocketManager(options);
+            }
+            else
+            {
                 Application.ExternalEval(@"
                 window.addEventListener('message', function(event) {
                     if (event.data.type === 'authToken') {
@@ -89,8 +89,8 @@ public class SocketIOManager : MonoBehaviour
 
                 // Start coroutine to wait for the auth token
                 StartCoroutine(WaitForAuthToken(options));
-        //    }
-        //});
+            }
+        });
 #else
         Func<SocketManager, Socket, object> authFunction = (manager, socket) =>
         {
