@@ -19,6 +19,15 @@ public class BonusController : MonoBehaviour
     private GameObject Bonus_Object;
     [SerializeField]
     private SlotBehaviour slotManager;
+    [SerializeField]
+    private AudioController _audioManager;
+    [SerializeField]
+    private GameObject PopupPanel;
+    [SerializeField]
+    private Transform Win_Transform;
+    [SerializeField]
+    private Transform Loose_Transform;
+
     internal bool isCollision = false;
 
     private Tween wheelRoutine;
@@ -36,6 +45,10 @@ public class BonusController : MonoBehaviour
 
     internal void StartBonus(int stop)
     {
+        if (PopupPanel) PopupPanel.SetActive(false);
+        if (Win_Transform) Win_Transform.gameObject.SetActive(false);
+        if (Loose_Transform) Loose_Transform.gameObject.SetActive(false);
+        if (_audioManager) _audioManager.SwitchBGSound(true);
         if (Spin_Button) Spin_Button.interactable = true;
         stopIndex = stop;
         if (Bonus_Object) Bonus_Object.SetActive(true);
@@ -57,7 +70,7 @@ public class BonusController : MonoBehaviour
     {
         for (int i = 0; i < bonusdata.Count; i++)
         {
-            if (bonusdata[i] == "-1")
+            if (bonusdata[i] == "-1") 
             {
                 if (Bonus_Text[i]) Bonus_Text[i].text = "NO \nBONUS";
             }
@@ -72,6 +85,7 @@ public class BonusController : MonoBehaviour
     {
         if (Wheel_Transform) Wheel_Transform.localEulerAngles = new Vector3(0, 0, 359);
         if (Wheel_Transform) wheelRoutine =  Wheel_Transform.DORotate(new Vector3(0, 0, 0), 1, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1);
+        _audioManager.PlayBonusAudio("cycleSpin");
     }
 
     private void ResetColliders()
@@ -97,11 +111,40 @@ public class BonusController : MonoBehaviour
             Wheel_Transform.DORotate(Wheel_Transform.eulerAngles + Vector3.forward * Random.Range(-elasticIntensity, elasticIntensity), 1f)
                 .SetEase(Ease.OutElastic);
         }
+        if (Bonus_Text[stopIndex].text.Equals("NO \nBONUS")) 
+        {
+            if (Loose_Transform) Loose_Transform.gameObject.SetActive(true);
+            if (Loose_Transform) Loose_Transform.localScale = Vector3.zero;
+            if (PopupPanel) PopupPanel.SetActive(true);
+            if (Loose_Transform) Loose_Transform.DOScale(Vector3.one, 1f);
+            PlayWinLooseSound(false);
+        }
+        else
+        {
+            if (Win_Transform) Win_Transform.gameObject.SetActive(true);
+            if (Win_Transform) Win_Transform.localScale = Vector3.zero;
+            if (PopupPanel) PopupPanel.SetActive(true);
+            if (Win_Transform) Win_Transform.DOScale(Vector3.one, 1f);
+            PlayWinLooseSound(true);
+        }
         DOVirtual.DelayedCall(3f, () =>
         {
             ResetColliders();
+            if (_audioManager) _audioManager.SwitchBGSound(false);
             if (Bonus_Object) Bonus_Object.SetActive(false);
             slotManager.CheckPopups = false;
         });
+    }
+
+    internal void PlayWinLooseSound(bool isWin)
+    {
+        if (isWin)
+        {
+            _audioManager.PlayBonusAudio("win");
+        }
+        else
+        {
+            _audioManager.PlayBonusAudio("lose");
+        }
     }
 }

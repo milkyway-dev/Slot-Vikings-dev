@@ -16,6 +16,9 @@ public class SocketIOManager : MonoBehaviour
     [SerializeField]
     private SlotBehaviour slotManager;
 
+    [SerializeField]
+    private UIManager uiManager;
+
     internal GameData initialData = null;
     internal UIData initUIData = null;
     internal GameData resultData = null;
@@ -38,11 +41,14 @@ public class SocketIOManager : MonoBehaviour
 
     protected string gameID = "SL-VIK";
 
+    internal bool isLoaded = false;
+
+    private const int maxReconnectionAttempts = 5;
+    private readonly TimeSpan reconnectionDelay = TimeSpan.FromSeconds(2);
 
     private void Awake()
     {
-        Debug.Log("Application is loaded");
-        Application.ExternalCall("window.parent.postMessage", "OnEnter", "*");
+        isLoaded = false;
     }
 
     private void Start()
@@ -64,7 +70,9 @@ public class SocketIOManager : MonoBehaviour
     {
         // Create and setup SocketOptions
         SocketOptions options = new SocketOptions();
-        options.AutoConnect = false;
+        options.ReconnectionAttempts = maxReconnectionAttempts;
+        options.ReconnectionDelay = reconnectionDelay;
+        options.Reconnection = true;
 
         Application.ExternalCall("window.parent.postMessage", "authToken", "*");
 
@@ -148,9 +156,7 @@ public class SocketIOManager : MonoBehaviour
         this.manager.Socket.On<string>(SocketIOEventTypes.Disconnect, OnDisconnected);
         this.manager.Socket.On<string>(SocketIOEventTypes.Error, OnError);
         this.manager.Socket.On<string>("message", OnListenEvent);
-
         // Start connecting to the server
-        this.manager.Open();
     }
 
     // Connected event handler implementation
@@ -163,6 +169,14 @@ public class SocketIOManager : MonoBehaviour
     private void OnDisconnected(string response)
     {
         Debug.Log("Disconnected from the server");
+        //if (maxReconnectionAttempts <= this.manager.ReconnectAttempts)
+        //{
+            uiManager.DisconnectionPopup(false);
+        //}
+        //else
+        //{
+        //    uiManager.DisconnectionPopup(false);
+        //}
     }
 
     private void OnError(string response)
@@ -260,7 +274,7 @@ public class SocketIOManager : MonoBehaviour
 
         slotManager.SetInitialUI();
 
-        //Application.ExternalCall("window.parent.postMessage", "OnEnter", "*");
+        isLoaded = true;
     }
 
     internal void AccumulateResult(double currBet)
@@ -276,6 +290,8 @@ public class SocketIOManager : MonoBehaviour
         MessageData message = new MessageData();
         message.data = new BetData();
         message.data.currentBet = bet;
+        message.data.spins = 1;
+        message.data.currentLines = 20;
         message.id = namespaceName;
         // Serialize message data to JSON
         string json = JsonUtility.ToJson(message);
@@ -362,7 +378,8 @@ public class SocketIOManager : MonoBehaviour
 public class BetData
 {
     public double currentBet;
-    //public double TotalLines;
+    public double currentLines;
+    public double spins;
 }
 
 [Serializable]
@@ -473,6 +490,7 @@ public class PlayerData
 {
     public double Balance { get; set; }
     public double haveWon { get; set; }
+    public int currentWining { get; set; }
 }
 
 

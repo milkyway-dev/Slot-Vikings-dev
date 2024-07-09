@@ -8,10 +8,6 @@ public class JSHandler : MonoBehaviour
 {
     [DllImport("__Internal")]
     private static extern IntPtr GetAuthToken(string cookieName);
-    [DllImport("__Internal")]
-    private static extern int IsFullScreen();
-    [DllImport("__Internal")]
-    private static extern void ForceFullScreen();
 
     internal void RetrieveAuthToken(string cookieName, Action<string> callback)
     {
@@ -65,21 +61,5 @@ public class JSHandler : MonoBehaviour
         {
             Debug.LogError("Exception while freeing memory: " + ex.Message);
         }
-    }
-
-    private void Update()
-    {
-#if UNITY_WEBGL && !UNITY_EDITOR
-        bool isFullScreen = IsFullScreen() == 1;
-
-        if(isFullScreen)
-        {
-            ForceFullScreen();
-        }
-        else
-        {
-
-        }
-#endif
     }
 }
