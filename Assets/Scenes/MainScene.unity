@@ -4839,8 +4839,8 @@ MonoBehaviour:
   uiManager: {fileID: 377874625}
   bonusdata: []
   _jsManager: {fileID: 500036493}
-  SocketURI: https://game-crm-rtp-backend-newbranch.onrender.com/
-  testToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImdhdXJhdjExMTEiLCJyb2xlIjoicGxheWVyIiwiaWF0IjoxNzIwNTA1Nzk4LCJleHAiOjE3MjA1OTIxOTh9.OlvCLJSirEgVPdVxobsA82lpOPbykZzDnPN-N7-0Fw8
+  SocketURI: https://dev.casinoparadize.com
+  testToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OGNkOGJmNjdhOTQ3YWJhMWU5Yjc2YiIsInVzZXJuYW1lIjoic2ltYXIiLCJyb2xlIjoicGxheWVyIiwiaWF0IjoxNzIwNjAzMTU0LCJleHAiOjE3MjA2ODk1NTR9.ea9sbWxjTiCrhJEblSW4oCnkeV8UM0LqDab5bMUGVmc
 --- !u!114 &500036493
 MonoBehaviour:
   m_ObjectHideFlags: 0
