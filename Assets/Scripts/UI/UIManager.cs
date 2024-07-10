@@ -163,6 +163,7 @@ public class UIManager : MonoBehaviour
 
     private bool isMusic = true;
     private bool isSound = true;
+    private bool isExit = false;
 
     private int FreeSpins;
 
@@ -280,7 +281,10 @@ public class UIManager : MonoBehaviour
         else
         {
             ClosePopup(ReconnectPopup_Object);
-            OpenPopup(DisconnectPopup_Object);
+            if (!isExit)
+            {
+                OpenPopup(DisconnectPopup_Object);
+            }
         }
     }
 
@@ -381,6 +385,7 @@ public class UIManager : MonoBehaviour
 
     private void CallOnExitFunction()
     {
+        isExit = true;
         audioController.PlayButtonAudio();
         slotManager.CallCloseSocket();
         Application.ExternalCall("window.parent.postMessage", "onExit", "*");
