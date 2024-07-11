@@ -33,8 +33,7 @@ public class SocketIOManager : MonoBehaviour
     [SerializeField]
     internal JSHandler _jsManager;
 
-    [SerializeField]
-    private string SocketURI;
+    protected string SocketURI = "https://dev.casinoparadize.com";
 
     [SerializeField]
     private string testToken;
@@ -490,7 +489,7 @@ public class PlayerData
 {
     public double Balance { get; set; }
     public double haveWon { get; set; }
-    public int currentWining { get; set; }
+    public double currentWining { get; set; }
 }
 
 

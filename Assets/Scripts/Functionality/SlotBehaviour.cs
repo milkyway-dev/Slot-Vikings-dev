@@ -564,7 +564,7 @@ public class SlotBehaviour : MonoBehaviour
 
         CheckPopups = true;
 
-        if (TotalWin_text) TotalWin_text.text = SocketManager.playerdata.currentWining.ToString();
+        if (TotalWin_text) TotalWin_text.text = SocketManager.playerdata.currentWining.ToString("f2");
 
         if (Balance_text) Balance_text.text = SocketManager.playerdata.Balance.ToString("f2");
 
