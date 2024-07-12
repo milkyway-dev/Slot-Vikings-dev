@@ -139,6 +139,12 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private GameObject ReconnectPopup_Object;
 
+    [Header("LowBalance Popup")]
+    [SerializeField]
+    private Button LBExit_Button;
+    [SerializeField]
+    private GameObject LBPopup_Object;
+
     [Header("Quit Popup")]
     [SerializeField]
     private GameObject QuitPopup_Object;
@@ -250,6 +256,9 @@ public class UIManager : MonoBehaviour
         if (CrossQuit_Button) CrossQuit_Button.onClick.RemoveAllListeners();
         if (CrossQuit_Button) CrossQuit_Button.onClick.AddListener(delegate { ClosePopup(QuitPopup_Object); });
 
+        if (LBExit_Button) LBExit_Button.onClick.RemoveAllListeners();
+        if (LBExit_Button) LBExit_Button.onClick.AddListener(delegate { ClosePopup(LBPopup_Object); });
+
         if (YesQuit_Button) YesQuit_Button.onClick.RemoveAllListeners();
         if (YesQuit_Button) YesQuit_Button.onClick.AddListener(CallOnExitFunction);
 
@@ -270,6 +279,11 @@ public class UIManager : MonoBehaviour
         if (Music_Button) Music_Button.onClick.RemoveAllListeners();
         if (Music_Button) Music_Button.onClick.AddListener(ToggleMusic);
 
+    }
+
+    internal void LowBalPopup()
+    {
+        OpenPopup(LBPopup_Object);
     }
 
     internal void DisconnectionPopup(bool isReconnection)
@@ -419,6 +433,7 @@ public class UIManager : MonoBehaviour
     private void CloseMenu()
     {
 
+        if (audioController) audioController.PlayButtonAudio();
         //DOTween.To(() => About_RT.anchoredPosition, (val) => About_RT.anchoredPosition = val, new Vector2(About_RT.anchoredPosition.x, About_RT.anchoredPosition.y - 150), 0.1f).OnUpdate(() =>
         //{
         //    LayoutRebuilder.ForceRebuildLayoutImmediate(About_RT);
