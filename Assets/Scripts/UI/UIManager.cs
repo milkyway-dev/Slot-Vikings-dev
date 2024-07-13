@@ -73,6 +73,12 @@ public class UIManager : MonoBehaviour
     private Button PaytableExit_Button;
     [SerializeField]
     private TMP_Text[] SymbolsText;
+    [SerializeField]
+    private TMP_Text FreeSpin_Text;
+    [SerializeField]
+    private TMP_Text Scatter_Text;
+    [SerializeField]
+    private TMP_Text Jackpot_Text;
 
     [Header("Settings Popup")]
     [SerializeField]
@@ -374,26 +380,38 @@ public class UIManager : MonoBehaviour
 
     private void PopulateSymbolsPayout(Paylines paylines)
     {
-        for (int i = 0; i < paylines.symbols.Count; i++)
+        for (int i = 0; i < SymbolsText.Length; i++)
         {
             string text = null;
-            if (paylines.symbols[i].multiplier._5x != 0)
+            if (paylines.symbols[i].Multiplier[0][0] != 0)
             {
-                text += "5x - " + paylines.symbols[i].multiplier._5x;
+                text += "5x - " + paylines.symbols[i].Multiplier[0][0];
             }
-            if (paylines.symbols[i].multiplier._4x != 0)
+            if (paylines.symbols[i].Multiplier[1][0] != 0)
             {
-                text += "\n4x - " + paylines.symbols[i].multiplier._4x;
+                text += "\n4x - " + paylines.symbols[i].Multiplier[1][0];
             }
-            if (paylines.symbols[i].multiplier._3x != 0)
+            if (paylines.symbols[i].Multiplier[2][0] != 0)
             {
-                text += "\n3x - " + paylines.symbols[i].multiplier._3x;
-            }
-            if (paylines.symbols[i].multiplier._2x != 0)
-            {
-                text += "\n2x - " + paylines.symbols[i].multiplier._2x;
+                text += "\n3x - " + paylines.symbols[i].Multiplier[2][0];
             }
             if (SymbolsText[i]) SymbolsText[i].text = text;
+        }
+
+        for (int i = 0; i < paylines.symbols.Count; i++)
+        {
+            if (paylines.symbols[i].Name.ToUpper() == "FREESPIN")
+            {
+                if (FreeSpin_Text) FreeSpin_Text.text = "Free Spin: Activates " + paylines.symbols[i].Multiplier[0][1] + ", " + paylines.symbols[i].Multiplier[1][1] + ", or " + paylines.symbols[i].Multiplier[2][1] + " free spins when 3, 4, or 5 symbols appear on pay lines.";
+            }
+            if (paylines.symbols[i].Name.ToUpper() == "SCATTER")
+            {
+                if (Scatter_Text) Scatter_Text.text = "Scatter: Offers higher pay outs and awards " + paylines.symbols[i].Multiplier[0][1] + " free spins if 5 symbols align on the pay line with a multiplier.\nPayout: 5x - " + paylines.symbols[i].Multiplier[0][0] + ", 4x - " + paylines.symbols[i].Multiplier[1][0] + ", 3x - " + paylines.symbols[i].Multiplier[2][0];
+            }
+            if (paylines.symbols[i].Name.ToUpper() == "JACKPOT")
+            {
+                if (Jackpot_Text) Jackpot_Text.text = "Jackpot: Mega win triggered by 5 Jackpot symbols on a pay line.\nPayout: <color=yellow>" + paylines.symbols[i].defaultAmount;
+            }
         }
     }
 

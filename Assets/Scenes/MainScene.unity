@@ -4002,6 +4002,9 @@ MonoBehaviour:
   - {fileID: 766397741}
   - {fileID: 1488854170}
   - {fileID: 1236919091}
+  FreeSpin_Text: {fileID: 1944824739}
+  Scatter_Text: {fileID: 1967758357}
+  Jackpot_Text: {fileID: 1448314178}
   SettingsPopup_Object: {fileID: 103253977}
   SettingsExit_Button: {fileID: 1398599432}
   Sound_Button: {fileID: 377509777}
@@ -4709,7 +4712,7 @@ MonoBehaviour:
   uiManager: {fileID: 377874625}
   bonusdata: []
   _jsManager: {fileID: 500036493}
-  testToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OGZiMmQwZmE0ZWVmYmQyZmQ0NWY3OCIsInVzZXJuYW1lIjoiZ2F1cmF2Iiwicm9sZSI6InBsYXllciIsImlhdCI6MTcyMDY5Njg4MSwiZXhwIjoxNzIwNzgzMjgxfQ.ySD8axrJzpFXN8l7lHd0X3eo1FK39-E0AGerpSY6tzQ
+  testToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OGZiMmQwZmE0ZWVmYmQyZmQ0NWY3OCIsInVzZXJuYW1lIjoiZ2F1cmF2Iiwicm9sZSI6InBsYXllciIsImlhdCI6MTcyMDg0NzE3OSwiZXhwIjoxNzIwOTMzNTc5fQ.omnYYnozWFzXDcEGRFyYyCVguEghBL7CInatu624FbI
 --- !u!114 &500036493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13967,7 +13970,7 @@ GameObject:
   - component: {fileID: 1448314179}
   - component: {fileID: 1448314178}
   m_Layer: 5
-  m_Name: Info_text (5)
+  m_Name: JackPot_text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14012,7 +14015,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Jackpot: Mega win triggered by 5 Jackpot symbols on a pay line.'
+  m_text: 'Jackpot: Mega win triggered by 5 Jackpot symbols on a pay line.
+
+    Payout:
+    12000'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1879b650e03124c95b3e541c29da6817, type: 2}
   m_sharedMaterial: {fileID: 4488374881921247725, guid: 1879b650e03124c95b3e541c29da6817, type: 2}
@@ -19320,7 +19326,7 @@ GameObject:
   - component: {fileID: 1944824740}
   - component: {fileID: 1944824739}
   m_Layer: 5
-  m_Name: Info_text (6)
+  m_Name: FreeSpin_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20052,7 +20058,7 @@ GameObject:
   - component: {fileID: 1967758358}
   - component: {fileID: 1967758357}
   m_Layer: 5
-  m_Name: Info_text (7)
+  m_Name: Scatter_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20098,7 +20104,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: 'Scatter: Offers higher pay outs and awards 5 free spins if 5 symbols align
-    on the pay line with a multiplier.'
+    on the pay line with a multiplier.
+
+    Payout: 5x - 1000, 4x - 700, 3x - 500x '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1879b650e03124c95b3e541c29da6817, type: 2}
   m_sharedMaterial: {fileID: 4488374881921247725, guid: 1879b650e03124c95b3e541c29da6817, type: 2}
@@ -22006,7 +22014,6 @@ MonoBehaviour:
   TempList: []
   IconSizeFactor: 173
   verticalVisibility: 3
-  Lines: 20
   SocketManager: {fileID: 500036492}
 --- !u!1 &2056920231
 GameObject:

@@ -131,8 +131,7 @@ public class SlotBehaviour : MonoBehaviour
     [SerializeField]
     int verticalVisibility = 3;
 
-    [SerializeField]
-    int Lines = 20;
+    protected int Lines = 20;
 
     [SerializeField]
     private SocketIOManager SocketManager;
@@ -503,9 +502,9 @@ public class SlotBehaviour : MonoBehaviour
     //starts the spin process
     private void StartSlots(bool autoSpin = false)
     {
-        if (audioController) audioController.PlayWLAudio("spin");
+        if (audioController) audioController.PlaySpinButtonAudio();
 
-        if(!autoSpin)
+        if (!autoSpin)
         {
             if (AutoSpinRoutine != null)
             {
@@ -528,6 +527,7 @@ public class SlotBehaviour : MonoBehaviour
     //manage the Routine for spinning of the slots
     private IEnumerator TweenRoutine()
     {
+        if (audioController) audioController.PlayWLAudio("spin");
         if (currentBalance < currentTotalBet && !IsFreeSpin) 
         {
             CompareBalance();
