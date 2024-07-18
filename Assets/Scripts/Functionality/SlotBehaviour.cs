@@ -640,11 +640,7 @@ public class SlotBehaviour : MonoBehaviour
 
     internal void CheckWinPopups()
     {
-        if (SocketManager.resultData.jackpot > 0)
-        {
-            uiManager.PopulateWin(4, SocketManager.resultData.jackpot);
-        }
-        else if (SocketManager.resultData.WinAmout >= currentTotalBet * 5 && SocketManager.resultData.WinAmout < currentTotalBet * 10)
+        if (SocketManager.resultData.WinAmout >= currentTotalBet * 5 && SocketManager.resultData.WinAmout < currentTotalBet * 10)
         {
             uiManager.PopulateWin(1, SocketManager.resultData.WinAmout);
         }
