@@ -132,7 +132,7 @@ public class BonusController : MonoBehaviour
             ResetColliders();
             if (_audioManager) _audioManager.SwitchBGSound(false);
             if (Bonus_Object) Bonus_Object.SetActive(false);
-            slotManager.CheckPopups = false;
+            slotManager.CheckWinPopups();
         });
     }
 

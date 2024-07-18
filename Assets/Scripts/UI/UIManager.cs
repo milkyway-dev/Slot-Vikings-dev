@@ -359,7 +359,7 @@ public class UIManager : MonoBehaviour
         {
             if (WinPopup_Object) WinPopup_Object.SetActive(false);
             if (MainPopup_Object) MainPopup_Object.SetActive(false);
-            slotManager.CheckBonusGame();
+            slotManager.CheckPopups = false;
         });
     }
 

@@ -603,24 +603,17 @@ public class SlotBehaviour : MonoBehaviour
         if (SocketManager.resultData.jackpot > 0)
         {
             uiManager.PopulateWin(4, SocketManager.resultData.jackpot);
-        }
-        else if (SocketManager.resultData.WinAmout >= bet * 5 && SocketManager.resultData.WinAmout < bet * 10)
-        {
-            uiManager.PopulateWin(1, SocketManager.resultData.WinAmout);
+            yield return new WaitUntil(() => !CheckPopups);
+            CheckPopups = true;
         }
 
-        else if (SocketManager.resultData.WinAmout >= bet * 10 && SocketManager.resultData.WinAmout < bet * 15)
+        if (SocketManager.resultData.isBonus)
         {
-            uiManager.PopulateWin(2, SocketManager.resultData.WinAmout);
-        }
-        else if (SocketManager.resultData.WinAmout >= bet * 15)
-        {
-            uiManager.PopulateWin(3, SocketManager.resultData.WinAmout);
+            CheckBonusGame();
         }
         else
         {
-            yield return new WaitForSeconds(0.5f);
-            CheckBonusGame();
+            CheckWinPopups();
         }
 
         yield return new WaitUntil(() => !CheckPopups);
@@ -645,17 +638,33 @@ public class SlotBehaviour : MonoBehaviour
         SocketManager.CloseSocket();
     }
 
-
-    internal void CheckBonusGame()
+    internal void CheckWinPopups()
     {
-        if (SocketManager.resultData.isBonus)
+        if (SocketManager.resultData.jackpot > 0)
         {
-            _bonusManager.StartBonus((int)SocketManager.resultData.BonusStopIndex);
+            uiManager.PopulateWin(4, SocketManager.resultData.jackpot);
+        }
+        else if (SocketManager.resultData.WinAmout >= currentTotalBet * 5 && SocketManager.resultData.WinAmout < currentTotalBet * 10)
+        {
+            uiManager.PopulateWin(1, SocketManager.resultData.WinAmout);
+        }
+        else if (SocketManager.resultData.WinAmout >= currentTotalBet * 10 && SocketManager.resultData.WinAmout < currentTotalBet * 15)
+        {
+            uiManager.PopulateWin(2, SocketManager.resultData.WinAmout);
+        }
+        else if (SocketManager.resultData.WinAmout >= currentTotalBet * 15)
+        {
+            uiManager.PopulateWin(3, SocketManager.resultData.WinAmout);
         }
         else
         {
             CheckPopups = false;
         }
+    }
+
+    internal void CheckBonusGame()
+    {
+        _bonusManager.StartBonus((int)SocketManager.resultData.BonusStopIndex);
 
         if (SocketManager.resultData.freeSpins > 0) 
         {
