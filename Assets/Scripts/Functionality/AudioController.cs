@@ -137,6 +137,7 @@ public class AudioController : MonoBehaviour
         {
             case "bg":
                 bg_adudio.mute = toggle;
+                bg_audioBonus.mute = toggle;
                 break;
             case "button":
                 audioPlayer_button.mute=toggle;
@@ -144,6 +145,7 @@ public class AudioController : MonoBehaviour
                 break;
             case "wl":
                 audioPlayer_wl.mute=toggle;
+                audioPlayer_Bonus.mute = toggle;
                 break;
             case "all":
                 audioPlayer_wl.mute = toggle;

@@ -527,12 +527,12 @@ public class SlotBehaviour : MonoBehaviour
     //manage the Routine for spinning of the slots
     private IEnumerator TweenRoutine()
     {
-        if (audioController) audioController.PlayWLAudio("spin");
         if (currentBalance < currentTotalBet && !IsFreeSpin) 
         {
             CompareBalance();
             yield break;
         }
+        if (audioController) audioController.PlayWLAudio("spin");
         IsSpinning = true;
         ToggleButtonGrp(false);
         for (int i = 0; i < numberOfSlots; i++)
