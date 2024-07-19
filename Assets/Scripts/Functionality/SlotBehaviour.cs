@@ -697,6 +697,8 @@ public class SlotBehaviour : MonoBehaviour
         {
             TempList[i].StopAnimation();
         }
+        TempList.Clear();
+        TempList.TrimExcess();
     }
 
     //generate the payout lines generated 
