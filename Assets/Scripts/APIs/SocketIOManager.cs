@@ -157,6 +157,7 @@ public class SocketIOManager : MonoBehaviour
         this.manager.Socket.On<string>(SocketIOEventTypes.Disconnect, OnDisconnected);
         this.manager.Socket.On<string>(SocketIOEventTypes.Error, OnError);
         this.manager.Socket.On<string>("message", OnListenEvent);
+        this.manager.Socket.On<bool>("socketState", OnSocketState);
         // Start connecting to the server
     }
 
@@ -164,7 +165,7 @@ public class SocketIOManager : MonoBehaviour
     void OnConnected(ConnectResponse resp)
     {
         Debug.Log("Connected!");
-        InitRequest("AUTH");
+        //InitRequest("AUTH");
     }
 
     private void OnDisconnected(string response)
@@ -189,6 +190,19 @@ public class SocketIOManager : MonoBehaviour
     {
         Debug.Log("Received some_event with data: " + data);
         ParseResponse(data);
+    }
+
+    private void OnSocketState(bool state)
+    {
+        if (state)
+        {
+            Debug.Log("my state is " + state);
+            InitRequest("AUTH");
+        }
+        else
+        {
+
+        }
     }
 
     private void InitRequest(string eventName)
