@@ -45,6 +45,7 @@ public class BonusController : MonoBehaviour
 
     internal void StartBonus(int stop)
     {
+        ResetColliders();
         if (PopupPanel) PopupPanel.SetActive(false);
         if (Win_Transform) Win_Transform.gameObject.SetActive(false);
         if (Loose_Transform) Loose_Transform.gameObject.SetActive(false);
@@ -58,7 +59,6 @@ public class BonusController : MonoBehaviour
     {
         isCollision = false;
         if (Spin_Button) Spin_Button.interactable = false;
-        ResetColliders();
         RotateWheel();
         DOVirtual.DelayedCall(2f, () =>
         {
