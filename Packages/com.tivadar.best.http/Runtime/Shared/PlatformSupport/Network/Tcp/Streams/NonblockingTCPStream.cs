@@ -4,6 +4,7 @@ using System;
 using Best.HTTP.Shared.Extensions;
 using Best.HTTP.Shared.Streams;
 using Best.HTTP.Shared.PlatformSupport.Memory;
+using System.Threading;
 
 namespace Best.HTTP.Shared.PlatformSupport.Network.Tcp.Streams
 {
@@ -12,9 +13,11 @@ namespace Best.HTTP.Shared.PlatformSupport.Network.Tcp.Streams
     /// </summary>
     public sealed class NonblockingTCPStream : PeekableContentProviderStream, ITCPStreamerContentConsumer
     {
+        public long MaxBufferSize { get => Volatile.Read(ref this._maxBufferSize); set => Interlocked.Exchange(ref this._maxBufferSize, value); }
+        private long _maxBufferSize;
+
         private TCPStreamer _streamer;
         private bool _disposeStreamer;
-        private uint _maxBufferSize;
 
         private int peek_listIdx;
         private int peek_pos;
@@ -87,7 +90,7 @@ namespace Best.HTTP.Shared.PlatformSupport.Network.Tcp.Streams
                 int readCount = base.Read(buffer, offset, count);
 
                 // pull content from the streamer, if buffered amount is less then the desired.
-                if (base.Length <= this._maxBufferSize)
+                if (base.Length <= this.MaxBufferSize)
                 {
                     DequeueFromStreamer();
                     this._streamer.BeginReceive();
@@ -122,7 +125,7 @@ namespace Best.HTTP.Shared.PlatformSupport.Network.Tcp.Streams
             if (this._streamer == null)
                 return;
 
-            while (this._streamer.Length > 0 && this._length < this._maxBufferSize)
+            while (this._streamer.Length > 0 && this._length < this.MaxBufferSize)
             {
                 var segment = this._streamer.DequeueReceived();
 

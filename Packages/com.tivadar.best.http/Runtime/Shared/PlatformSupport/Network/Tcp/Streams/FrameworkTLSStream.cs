@@ -21,6 +21,8 @@ namespace Best.HTTP.Shared.PlatformSupport.Network.Tcp.Streams
     public sealed class FrameworkTLSStream : PeekableContentProviderStream, ITCPStreamerContentConsumer
     {
         public Action<FrameworkTLSStream, TCPStreamer, string /*negotiated appplication protocol*/, Exception> OnNegotiated;
+        public long MaxBufferSize { get => Volatile.Read(ref this._maxBufferSize); set => Interlocked.Exchange(ref this._maxBufferSize, value); }
+        private long _maxBufferSize;
 
         private string _targetHost;
         private TCPStreamer _streamer;
@@ -28,8 +30,7 @@ namespace Best.HTTP.Shared.PlatformSupport.Network.Tcp.Streams
         private SslStream _sslStream;
         private LoggingContext _context;
         private HostSettings _hostSettings;
-        private uint _maxBufferSize;
-
+        
         private int peek_listIdx;
         private int peek_pos;
 
@@ -48,7 +49,7 @@ namespace Best.HTTP.Shared.PlatformSupport.Network.Tcp.Streams
             this._hostSettings = hostSettings;
             this._maxBufferSize = hostSettings.LowLevelConnectionSettings.ReadBufferSize;
 
-            this._forwarder = new FrameworkTLSByteForwarder(this._streamer, this, this._maxBufferSize, this._context);
+            this._forwarder = new FrameworkTLSByteForwarder(this._streamer, this, this.MaxBufferSize, this._context);
             this._sslStream = new SslStream(this._forwarder,
                 leaveInnerStreamOpen: false,
                 OnUserCertificationValidation,
@@ -186,7 +187,7 @@ namespace Best.HTTP.Shared.PlatformSupport.Network.Tcp.Streams
             if (HTTPManager.Logger.IsDiagnostic)
                 HTTPManager.Logger.Verbose(nameof(FrameworkTLSStream), $"{nameof(BeginRead)}()", this._context);
 
-            var buffer = BufferPool.Get(this._maxBufferSize, true, this._context);
+            var buffer = BufferPool.Get(Math.Min(this.MaxBufferSize, 1 * 1024 * 1024), true, this._context);
 
             this._sslStream.ReadAsync(buffer, 0, buffer.Length)
                 //.AsTask()
@@ -223,7 +224,7 @@ namespace Best.HTTP.Shared.PlatformSupport.Network.Tcp.Streams
             {
                 do
                 {
-                    var buffer = BufferPool.Get(this._maxBufferSize, true, this._context);
+                    var buffer = BufferPool.Get(Math.Min(this.MaxBufferSize, 1 * 1024 * 1024), true, this._context);
 
                     ar = this._sslStream.BeginRead(buffer, 0, buffer.Length, OnRead, buffer);
                 } while (ar != null && ar.CompletedSynchronously);

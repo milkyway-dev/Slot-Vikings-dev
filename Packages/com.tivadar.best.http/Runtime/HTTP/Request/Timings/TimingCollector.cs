@@ -143,6 +143,35 @@ namespace Best.HTTP.Request.Timings
             return TimingEvent.Empty;
         }
 
+        public TimingEvent FindNext(TimingEvent relativeTo, string name)
+        {
+            int from = 0;
+
+            if (relativeTo != TimingEvent.Empty)
+            {
+                for (int i = 0; i < this.Events.Count; i++)
+                {
+                    var ev = this.Events[i];
+
+                    if (relativeTo.Equals(ev))
+                    {
+                        from = i + 1;
+                        break;
+                    }
+                }
+            }
+
+            for (int i = from; i < this.Events.Count; i++)
+            {
+                var ev = this.Events[i];
+
+                if (ev.Name == name)
+                    return ev;
+            }
+
+            return TimingEvent.Empty;
+        }
+
         public override string ToString()
         {
             var sb = StringBuilderPool.Get(0);

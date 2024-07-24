@@ -85,6 +85,8 @@ namespace Best.HTTP.Hosts.Connections
         {
             this.LastProcessedUri = request.CurrentUri;
             this.CurrentRequest = request;
+            this.CurrentRequest.Context.Add("Connection", this.Context.Hash);
+
             this.State = HTTPConnectionStates.Processing;
 
             if (this.requestHandler == null)

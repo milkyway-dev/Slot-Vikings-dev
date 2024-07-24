@@ -32,6 +32,11 @@ namespace Best.HTTP.Shared.PlatformSupport.Network.Tcp
     public interface ITCPStreamerContentConsumer
     {
         /// <summary>
+        /// Gets or sets the maximum amount of data bufferable in the consumer.
+        /// </summary>
+        long MaxBufferSize { get; set; }
+
+        /// <summary>
         /// Writes the specified data buffer to the associated <see cref="TCPStreamer"/> instance. The data is copied into a new buffer and passed to the streamer for transmission.
         /// </summary>
         /// <param name="buffer">The byte array containing the data to be written.</param>
@@ -311,7 +316,8 @@ namespace Best.HTTP.Shared.PlatformSupport.Network.Tcp
             }
             catch (Exception ex)
             {
-                HTTPManager.Logger.Exception(nameof(TCPStreamer), $"{nameof(OnReceived)}({errorCode})", ex, this._loggingContext);
+                if (!Volatile.Read(ref this._disposed))
+                    HTTPManager.Logger.Exception(nameof(TCPStreamer), $"{nameof(OnReceived)}({errorCode})", ex, this._loggingContext);
             }
             finally
             {
@@ -400,7 +406,10 @@ namespace Best.HTTP.Shared.PlatformSupport.Network.Tcp
 #endif
                 }
                 else
-                    SendFromQueue();
+                {
+                    if (!SendFromQueue())
+                        Interlocked.Exchange(ref this.writeState._writeInProgress, 0);
+                }
             }
             catch
             {
@@ -507,11 +516,22 @@ namespace Best.HTTP.Shared.PlatformSupport.Network.Tcp
         /// </summary>
         public void Dispose()
         {
+            // If not closed, close
+            if (Volatile.Read(ref this._closed) == 0)
+            {
+                this.Close();
+
+                // Close will trigger OnDisconnected that calls Dispose again, but this._closed will be set to 0 this time.
+                return;
+            }
+
+            // if not disposed, dispose
             if (this._disposed)
                 return;
             this._disposed = true;
 
-            this.Close();
+            this._socket?.Dispose();
+            this._socket = null;
             
             GC.SuppressFinalize(this);
         }
@@ -519,7 +539,10 @@ namespace Best.HTTP.Shared.PlatformSupport.Network.Tcp
         void IHeartbeat.OnHeartbeatUpdate(DateTime now, TimeSpan dif) 
         {
             if (this.writeState._segmentsToWrite.Count > 0 && Interlocked.CompareExchange(ref this.writeState._writeInProgress, 1, 0) == 0)
-                SendFromQueue();
+            {
+                if (!SendFromQueue())
+                    Interlocked.Exchange(ref this.writeState._writeInProgress, 0);
+            }
         }
 
         /// <summary>

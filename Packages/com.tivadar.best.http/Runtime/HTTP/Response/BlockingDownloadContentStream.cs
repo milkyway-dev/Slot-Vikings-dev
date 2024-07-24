@@ -118,7 +118,7 @@ namespace Best.HTTP.Response
                     return segment;
                 }
 
-                if (base._isCompleted)
+                if (base.IsCompleted)
                     throw new InvalidOperationException("The stream is empty and marked as completed!");
 
                 if (WaitForEvent(timeout)) /*!this._are.WaitOne(timeout)*/

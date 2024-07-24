@@ -1,6 +1,6 @@
 using System.Reflection;
 
-[assembly: AssemblyVersion("3.0.4")]
+[assembly: AssemblyVersion("3.0.5")]
 [assembly: AssemblyCompany("Tivadar György Nagy")]
 [assembly: AssemblyCopyright("Copyright © 2024 Tivadar György Nagy")]
 [assembly: AssemblyDescription("Best WebSockets is a premier networking library for Unity, tailored specifically for seamless WebSocket integration. It's perfect for applications that require real-time, bi-directional communication such as chat applications, multiplayer games, and live interactive systems.")]

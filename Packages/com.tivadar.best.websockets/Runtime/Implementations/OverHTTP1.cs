@@ -143,6 +143,10 @@ namespace Best.WebSockets.Implementations
             // Save the provider
             this.ContentProvider = contentProvider;
 
+            // Websocket continously reading from the stream, but it could stuck with frames larger than the MaxBufferSize.
+            if (this.ContentProvider is ITCPStreamerContentConsumer consumer && consumer is not null)
+                consumer.MaxBufferSize = long.MaxValue;
+
             // Switch the comsumer to this websocket implementation instead of the http1 consumer.
             contentProvider.SetTwoWayBinding(this);
 

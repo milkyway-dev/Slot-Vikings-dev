@@ -158,6 +158,8 @@ public class SocketIOManager : MonoBehaviour
         this.manager.Socket.On<string>(SocketIOEventTypes.Error, OnError);
         this.manager.Socket.On<string>("message", OnListenEvent);
         this.manager.Socket.On<bool>("socketState", OnSocketState);
+        this.manager.Socket.On<string>("internalError", OnSocketError);
+        this.manager.Socket.On<string>("alert", OnSocketAlert);
         // Start connecting to the server
     }
 
@@ -203,6 +205,14 @@ public class SocketIOManager : MonoBehaviour
         {
 
         }
+    }
+    private void OnSocketError(string data)
+    {
+        Debug.Log("Received error with data: " + data);
+    }
+    private void OnSocketAlert(string data)
+    {
+        Debug.Log("Received alert with data: " + data);
     }
 
     private void InitRequest(string eventName)

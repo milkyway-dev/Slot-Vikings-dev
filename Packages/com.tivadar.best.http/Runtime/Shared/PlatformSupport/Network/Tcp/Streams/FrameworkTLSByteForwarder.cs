@@ -20,6 +20,9 @@ namespace Best.HTTP.Shared.PlatformSupport.Network.Tcp.Streams
 
         public override long Position { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
+        public long MaxBufferSize { get => Volatile.Read(ref this._maxBufferSize); set => Interlocked.Exchange(ref this._maxBufferSize, value); }
+        private long _maxBufferSize;
+
         private TCPStreamer _streamer;
         private LoggingContext _context;
         private ITCPStreamerContentConsumer _contentConsumer;
@@ -31,9 +34,7 @@ namespace Best.HTTP.Shared.PlatformSupport.Network.Tcp.Streams
 
         private BufferSegment _currentReadSegment = BufferSegment.Empty;
 
-        private uint _maxBufferSize;
-
-        public FrameworkTLSByteForwarder(TCPStreamer streamer, ITCPStreamerContentConsumer contentConsumer, uint maxBufferSize, LoggingContext context)
+        public FrameworkTLSByteForwarder(TCPStreamer streamer, ITCPStreamerContentConsumer contentConsumer, long maxBufferSize, LoggingContext context)
         {
             this._streamer = streamer;
             this._streamer.ContentConsumer = this;
@@ -60,7 +61,7 @@ namespace Best.HTTP.Shared.PlatformSupport.Network.Tcp.Streams
 
             try
             {
-                while (this._streamer.Length > 0 && this._length < this._maxBufferSize)
+                while (this._streamer.Length > 0 && this._length < this.MaxBufferSize)
                 {
                     var tmp = this._streamer.DequeueReceived();
 

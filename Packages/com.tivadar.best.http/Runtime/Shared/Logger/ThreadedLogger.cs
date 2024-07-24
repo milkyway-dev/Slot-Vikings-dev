@@ -339,12 +339,10 @@ namespace Best.HTTP.Shared.Logger
         {
             sb.Length = 0;
 
-            sb.AppendFormat("{{\"tid\":{0},\"div\":\"{1}\",\"msg\":\"{2}\",\"t\":{3},\"ll\":\"{4}\"",
+            sb.AppendFormat("{{\"tid\":{0},\"div\":\"{1}\",\"msg\":\"{2}\"",
                 WrapInColor(this.threadId.ToString(), "yellow", acceptColor),
                 WrapInColor(this.division, "yellow", acceptColor),
-                WrapInColor(LoggingContext.Escape(this.msg), "yellow", acceptColor),
-                this.time.Ticks.ToString(),
-                LevelStrings[(int)this.level]);
+                WrapInColor(LoggingContext.Escape(this.msg), "yellow", acceptColor));
 
             if (ex != null)
             {
@@ -382,10 +380,16 @@ namespace Best.HTTP.Shared.Logger
             {
                 sb.Append(",\"ctx\": [");
                 sb.Append(this.context);
-                sb.Append("],\"bh\":1}");
+                sb.Append("]");
             }
             else
-                sb.Append(",\"ctxs\":[],\"bh\":1}");
+                sb.Append(",\"ctxs\":[]");
+
+            sb.AppendFormat(",\"t\":{0},\"ll\":\"{1}\",",
+                this.time.Ticks.ToString(),
+                LevelStrings[(int)this.level]);
+
+            sb.Append("\"bh\":1}");
 
             return sb.ToString();
         }
