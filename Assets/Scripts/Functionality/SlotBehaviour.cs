@@ -371,6 +371,17 @@ public class SlotBehaviour : MonoBehaviour
         if (SlotStart_Button) SlotStart_Button.interactable = true;
     }
 
+    private void nApplicationFocus(bool focus)
+    {
+        if(focus)
+        {
+            if(!IsSpinning)
+            {
+                if (audioController) audioController.StopWLAaudio();
+            }
+        }
+    }
+
     private void PopulateSlot(List<int> values, int number)
     {
         if (Slot_Objects[number]) Slot_Objects[number].SetActive(true);
