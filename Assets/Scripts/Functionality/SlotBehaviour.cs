@@ -371,7 +371,7 @@ public class SlotBehaviour : MonoBehaviour
         if (SlotStart_Button) SlotStart_Button.interactable = true;
     }
 
-    private void nApplicationFocus(bool focus)
+    private void OnApplicationFocus(bool focus)
     {
         if(focus)
         {
