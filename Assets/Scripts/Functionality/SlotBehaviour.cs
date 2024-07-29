@@ -640,7 +640,7 @@ public class SlotBehaviour : MonoBehaviour
             yield return new WaitForSeconds(2f);
             IsSpinning = false;
         }
-        if(SocketManager.resultData.freeSpins > 0)
+        if(SocketManager.resultData.freeSpins > 0 && !IsFreeSpin)
         {
             uiManager.FreeSpinProcess((int)SocketManager.resultData.freeSpins);
         }

@@ -139,6 +139,12 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private GameObject DisconnectPopup_Object;
 
+    [Header("AnotherDevice Popup")]
+    [SerializeField]
+    private Button CloseAD_Button;
+    [SerializeField]
+    private GameObject ADPopup_Object;
+
     [Header("Reconnection Popup")]
     [SerializeField]
     private TMP_Text reconnect_Text;
@@ -271,6 +277,9 @@ public class UIManager : MonoBehaviour
         if (CloseDisconnect_Button) CloseDisconnect_Button.onClick.RemoveAllListeners();
         if (CloseDisconnect_Button) CloseDisconnect_Button.onClick.AddListener(CallOnExitFunction);
 
+        if (CloseAD_Button) CloseAD_Button.onClick.RemoveAllListeners();
+        if (CloseAD_Button) CloseAD_Button.onClick.AddListener(CallOnExitFunction);
+
         if (FreeSpin_Button) FreeSpin_Button.onClick.RemoveAllListeners();
         if (FreeSpin_Button) FreeSpin_Button.onClick.AddListener(delegate{ StartFreeSpins(FreeSpins); });
 
@@ -361,6 +370,11 @@ public class UIManager : MonoBehaviour
             if (MainPopup_Object) MainPopup_Object.SetActive(false);
             slotManager.CheckPopups = false;
         });
+    }
+
+    internal void ADfunction()
+    {
+        OpenPopup(ADPopup_Object); 
     }
 
     internal void InitialiseUIData(string SupportUrl, string AbtImgUrl, string TermsUrl, string PrivacyUrl, Paylines symbolsText)
