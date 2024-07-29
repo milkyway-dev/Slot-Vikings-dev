@@ -36,6 +36,7 @@ public class SocketIOManager : MonoBehaviour
     internal JSHandler _jsManager;
 
     protected string SocketURI = "https://dev.casinoparadize.com";
+    //protected string SocketURI = "https://7p68wzhv-5000.inc1.devtunnels.ms/";
 
     [SerializeField]
     private string testToken;
@@ -238,9 +239,31 @@ public class SocketIOManager : MonoBehaviour
 
     internal void CloseSocket()
     {
+        CloseSocketMesssage("EXIT");
         if (this.manager != null)
         {
             this.manager.Close();
+        }
+    }
+    private void CloseSocketMesssage(string eventName)
+    {
+        // Construct message data
+
+        ExitData message = new ExitData();
+        message.id = "EXIT";
+
+        // Serialize message data to JSON
+        string json = JsonUtility.ToJson(message);
+        Debug.Log(json);
+        // Send the message
+        if (this.manager.Socket != null && this.manager.Socket.IsOpen)
+        {
+            this.manager.Socket.Emit(eventName, json);
+            Debug.Log("JSON data sent: " + json);
+        }
+        else
+        {
+            Debug.LogWarning("Socket is not connected.");
         }
     }
 
@@ -418,6 +441,12 @@ public class AuthData
 public class MessageData
 {
     public BetData data;
+    public string id;
+}
+
+[Serializable]
+public class ExitData
+{
     public string id;
 }
 
