@@ -424,7 +424,7 @@ public class UIManager : MonoBehaviour
             }
             if (paylines.symbols[i].Name.ToUpper() == "JACKPOT")
             {
-                if (Jackpot_Text) Jackpot_Text.text = "Jackpot: Mega win triggered by 5 Jackpot symbols on a pay line.\nPayout: <color=yellow>" + paylines.symbols[i].defaultAmount;
+                if (Jackpot_Text) Jackpot_Text.text = "Jackpot: Mega win triggered by 5 Jackpot symbols on a pay line.\nPayout: <color=yellow>" + paylines.symbols[i].defaultAmount + "x";
             }
         }
     }
