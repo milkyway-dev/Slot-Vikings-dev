@@ -249,6 +249,7 @@ public class SlotBehaviour : MonoBehaviour
         {
             StartSlots(IsAutoSpin);
             yield return tweenroutine;
+            yield return new WaitForSeconds(2);
             i++;
         }
         ToggleButtonGrp(true);
@@ -554,30 +555,36 @@ public class SlotBehaviour : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
 
-        double bet = 0;
-        double balance = 0;
-        try
+        if (!IsFreeSpin)
         {
-            bet = double.Parse(TotalBet_text.text);
-        }
-        catch (Exception e)
-        {
-            Debug.Log("Error while conversion " + e.Message);
-        }
+            double bet = 0;
+            double balance = 0;
+            try
+            {
+                bet = double.Parse(TotalBet_text.text);
+            }
+            catch (Exception e)
+            {
+                Debug.Log("Error while conversion " + e.Message);
+            }
 
-        try
-        {
-            balance = double.Parse(Balance_text.text);
+            try
+            {
+                balance = double.Parse(Balance_text.text);
+            }
+            catch (Exception e)
+            {
+                Debug.Log("Error while conversion " + e.Message);
+            }
+            double initAmount = balance;
+
+            balance = balance - bet;
+
+            DOTween.To(() => initAmount, (val) => initAmount = val, balance, 0.8f).OnUpdate(() =>
+            {
+                if (Balance_text) Balance_text.text = initAmount.ToString("f2");
+            });
         }
-        catch (Exception e)
-        {
-            Debug.Log("Error while conversion " + e.Message);
-        }
-
-        balance = balance - bet;
-
-        if (Balance_text) Balance_text.text = balance.ToString("f2");
-
         SocketManager.AccumulateResult(BetCounter);
 
         yield return new WaitUntil(() => SocketManager.isResultdone);
@@ -643,6 +650,11 @@ public class SlotBehaviour : MonoBehaviour
         if(SocketManager.resultData.freeSpins > 0 && !IsFreeSpin)
         {
             uiManager.FreeSpinProcess((int)SocketManager.resultData.freeSpins);
+            if (IsAutoSpin)
+            {
+                StopAutoSpin();
+                yield return new WaitForSeconds(0.1f);
+            }
         }
     }
 
