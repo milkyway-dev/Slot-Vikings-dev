@@ -411,9 +411,9 @@ public class SlotBehaviour : MonoBehaviour
         switch (val)
         {
             case 12:
-                for (int i = 0; i < Bonus_Sprite.Length; i++)
+                for (int i = 0; i < Jackpot_Sprite.Length; i++)
                 {
-                    animScript.textureArray.Add(Bonus_Sprite[i]);
+                    animScript.textureArray.Add(Jackpot_Sprite[i]);
                 }
                 animScript.AnimationSpeed = 30f;
                 break;
@@ -425,9 +425,9 @@ public class SlotBehaviour : MonoBehaviour
                 animScript.AnimationSpeed = 30f;
                 break;
             case 13:
-                for (int i = 0; i < Jackpot_Sprite.Length; i++)
+                for (int i = 0; i < Bonus_Sprite.Length; i++)
                 {
-                    animScript.textureArray.Add(Jackpot_Sprite[i]);
+                    animScript.textureArray.Add(Bonus_Sprite[i]);
                 }
                 animScript.AnimationSpeed = 30f;
                 break;
