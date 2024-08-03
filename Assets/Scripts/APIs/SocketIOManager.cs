@@ -178,7 +178,8 @@ public class SocketIOManager : MonoBehaviour
         Debug.Log("Disconnected from the server");
         //if (maxReconnectionAttempts <= this.manager.ReconnectAttempts)
         //{
-            uiManager.DisconnectionPopup(false);
+        StopAllCoroutines();
+        uiManager.DisconnectionPopup(false);
         //}
         //else
         //{
