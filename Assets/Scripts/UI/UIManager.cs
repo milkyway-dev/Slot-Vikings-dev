@@ -132,6 +132,8 @@ public class UIManager : MonoBehaviour
     private TMP_Text Loading_Text;
     [SerializeField]
     private TMP_Text LoadPercent_Text;
+    [SerializeField]
+    private Button QuitSplash_button;
 
     [Header("Disconnection Popup")]
     [SerializeField]
@@ -282,6 +284,9 @@ public class UIManager : MonoBehaviour
 
         if (FreeSpin_Button) FreeSpin_Button.onClick.RemoveAllListeners();
         if (FreeSpin_Button) FreeSpin_Button.onClick.AddListener(delegate{ StartFreeSpins(FreeSpins); });
+
+        if (QuitSplash_button) QuitSplash_button.onClick.RemoveAllListeners();
+        if (QuitSplash_button) QuitSplash_button.onClick.AddListener(delegate { OpenPopup(QuitPopup_Object); });
 
         if (audioController) audioController.ToggleMute(false);
 
