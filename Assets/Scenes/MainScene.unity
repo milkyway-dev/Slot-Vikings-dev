@@ -27486,8 +27486,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: dd37ae3aaa4b348b39804e6907d95d86, type: 3}
   - {fileID: 21300000, guid: 37fdb864e69a04639954f505a8ec87e9, type: 3}
   - {fileID: 21300000, guid: 76050b628489742ea9d912dec7ebc0b1, type: 3}
-  - {fileID: 21300000, guid: 7bf696512ca9d4a3d8612a35aa9caf1f, type: 3}
   - {fileID: 21300000, guid: ced0261dfd25c4394b03ca7b4627796f, type: 3}
+  - {fileID: 21300000, guid: 7bf696512ca9d4a3d8612a35aa9caf1f, type: 3}
   images:
   - slotImages:
     - {fileID: 7833985048482434981}
