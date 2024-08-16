@@ -35,8 +35,8 @@ public class SocketIOManager : MonoBehaviour
     [SerializeField]
     internal JSHandler _jsManager;
 
-    //protected string SocketURI = "";
-    protected string SocketURI = "https://7p68wzhv-5000.inc1.devtunnels.ms/";
+    protected string SocketURI = null;
+    //protected string SocketURI = "https://7p68wzhv-5000.inc1.devtunnels.ms/";
 
     [SerializeField]
     private string testToken;
@@ -116,6 +116,11 @@ public class SocketIOManager : MonoBehaviour
         while (myAuth == null)
         {
             Debug.Log("My Auth is null");
+            yield return null;
+        }
+        while (SocketURI == null)
+        {
+            Debug.Log("My Socket is null");
             yield return null;
         }
 
