@@ -102,6 +102,11 @@ public class SlotBehaviour : MonoBehaviour
     [SerializeField]
     private BonusController _bonusManager;
 
+    [Header("Free Spins Board")]
+    [SerializeField]
+    private GameObject FSBoard_Object;
+    [SerializeField]
+    private TMP_Text FSnum_text;
 
     int tweenHeight = 0;  //calculate the height at which tweening is done
 
@@ -160,6 +165,8 @@ public class SlotBehaviour : MonoBehaviour
 
         if (AutoSpinStop_Button) AutoSpinStop_Button.onClick.RemoveAllListeners();
         if (AutoSpinStop_Button) AutoSpinStop_Button.onClick.AddListener(StopAutoSpin);
+
+        if (FSBoard_Object) FSBoard_Object.SetActive(false);
 
         tweenHeight = (15 * IconSizeFactor) - 280;
     }
@@ -225,7 +232,8 @@ public class SlotBehaviour : MonoBehaviour
     {
         if (!IsFreeSpin)
         {
-
+            if (FSnum_text) FSnum_text.text = spins.ToString();
+            if (FSBoard_Object) FSBoard_Object.SetActive(true);
             IsFreeSpin = true;
             ToggleButtonGrp(false);
 
@@ -235,9 +243,9 @@ public class SlotBehaviour : MonoBehaviour
                 FreeSpinRoutine = null;
             }
             FreeSpinRoutine = StartCoroutine(FreeSpinCoroutine(spins));
-
         }
     }
+
     private IEnumerator FreeSpinCoroutine(int spinchances)
     {
         int i = 0;
@@ -246,8 +254,10 @@ public class SlotBehaviour : MonoBehaviour
             StartSlots(IsAutoSpin);
             yield return tweenroutine;
             yield return new WaitForSeconds(2);
+            if (FSnum_text) FSnum_text.text = (spinchances - i).ToString();
             i++;
         }
+        if (FSBoard_Object) FSBoard_Object.SetActive(false);
         ToggleButtonGrp(true);
         IsFreeSpin = false;
     }
@@ -604,9 +614,18 @@ public class SlotBehaviour : MonoBehaviour
             yield return new WaitForSeconds(2f);
             IsSpinning = false;
         }
-        if(SocketManager.resultData.freeSpins > 0 && !IsFreeSpin)
+        if(SocketManager.resultData.freeSpins.isNewAdded)
         {
-            uiManager.FreeSpinProcess((int)SocketManager.resultData.freeSpins);
+            if(IsFreeSpin)
+            {
+                IsFreeSpin = false;
+                if (FreeSpinRoutine != null)
+                {
+                    StopCoroutine(FreeSpinRoutine);
+                    FreeSpinRoutine = null;
+                }
+            }
+            uiManager.FreeSpinProcess((int)SocketManager.resultData.freeSpins.count);
             if (IsAutoSpin)
             {
                 StopAutoSpin();
@@ -669,14 +688,6 @@ public class SlotBehaviour : MonoBehaviour
     internal void CheckBonusGame()
     {
         _bonusManager.StartBonus((int)SocketManager.resultData.BonusStopIndex);
-
-        if (SocketManager.resultData.freeSpins > 0)
-        {
-            if (IsAutoSpin)
-            {
-                StopAutoSpin();
-            }
-        }
     }
 
     //generate the payout lines generated 

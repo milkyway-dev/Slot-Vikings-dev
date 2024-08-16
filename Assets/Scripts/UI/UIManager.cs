@@ -354,7 +354,7 @@ public class UIManager : MonoBehaviour
     {
         FreeSpins = spins;
         if (FreeSpinPopup_Object) FreeSpinPopup_Object.SetActive(true);
-        if (Free_Text) Free_Text.text = spins.ToString();
+        if (Free_Text) Free_Text.text = spins.ToString() + " Free spins awarded.";
         if (MainPopup_Object) MainPopup_Object.SetActive(true);
     }
 
