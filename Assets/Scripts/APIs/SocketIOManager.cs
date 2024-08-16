@@ -41,7 +41,7 @@ public class SocketIOManager : MonoBehaviour
     [SerializeField]
     private string testToken;
 
-    protected string gameID = "";
+    protected string gameID = "SL-VIK";
 
     internal bool isLoaded = false;
 
@@ -100,7 +100,8 @@ public class SocketIOManager : MonoBehaviour
         {
             return new
             {
-                token = testToken
+                token = testToken,
+                gameId = gameID
             };
         };
         options.Auth = authFunction;
@@ -124,7 +125,8 @@ public class SocketIOManager : MonoBehaviour
         {
             return new
             {
-                token = myAuth
+                token = myAuth,
+                gameId = gameID
             };
         };
         options.Auth = authFunction;
@@ -189,7 +191,6 @@ public class SocketIOManager : MonoBehaviour
         if (state)
         {
             Debug.Log("my state is " + state);
-            InitRequest("AUTH");
         }
         else
         {
@@ -242,16 +243,7 @@ public class SocketIOManager : MonoBehaviour
         }
     }
 
-    private void InitRequest(string eventName)
-    {
-        InitData message = new InitData();
-        message.Data = new AuthData();
-        message.Data.GameID = gameID;
-        message.id = "Auth";
-        // Serialize message data to JSON
-        string json = JsonUtility.ToJson(message);
-        SendDataWithNamespace(eventName, json);
-    }
+
 
     internal void CloseSocket()
     {
