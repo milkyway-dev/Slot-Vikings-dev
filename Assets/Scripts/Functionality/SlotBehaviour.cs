@@ -254,8 +254,8 @@ public class SlotBehaviour : MonoBehaviour
             StartSlots(IsAutoSpin);
             yield return tweenroutine;
             yield return new WaitForSeconds(2);
-            if (FSnum_text) FSnum_text.text = (spinchances - i).ToString();
             i++;
+            if (FSnum_text) FSnum_text.text = (spinchances - i).ToString();
         }
         if (FSBoard_Object) FSBoard_Object.SetActive(false);
         ToggleButtonGrp(true);
