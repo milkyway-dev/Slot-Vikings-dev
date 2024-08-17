@@ -12,6 +12,7 @@ using Best.SocketIO;
 using Best.SocketIO.Events;
 using Newtonsoft.Json.Linq;
 using System.Runtime.Serialization;
+using Best.HTTP.Shared;
 
 public class SocketIOManager : MonoBehaviour
 {
@@ -52,6 +53,7 @@ public class SocketIOManager : MonoBehaviour
     private void Awake()
     {
         Debug.unityLogger.logEnabled = false;
+        HTTPManager.Logger = null;
         isLoaded = false;
     }
 
@@ -152,7 +154,6 @@ public class SocketIOManager : MonoBehaviour
 #else
         this.manager = new SocketManager(new Uri(SocketURI), options);
 #endif
-
         // Set subscriptions
         this.manager.Socket.On<ConnectResponse>(SocketIOEventTypes.Connect, OnConnected);
         this.manager.Socket.On<string>(SocketIOEventTypes.Disconnect, OnDisconnected);
