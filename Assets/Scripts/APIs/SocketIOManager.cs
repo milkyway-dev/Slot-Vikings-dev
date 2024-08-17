@@ -36,6 +36,7 @@ public class SocketIOManager : MonoBehaviour
     internal JSHandler _jsManager;
 
     protected string SocketURI = null;
+    protected string TestSocketURI = "https://dev.casinoparadize.com";
     //protected string SocketURI = "https://7p68wzhv-5000.inc1.devtunnels.ms/";
 
     [SerializeField]
@@ -50,6 +51,7 @@ public class SocketIOManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.unityLogger.logEnabled = false;
         isLoaded = false;
     }
 
@@ -145,7 +147,11 @@ public class SocketIOManager : MonoBehaviour
     private void SetupSocketManager(SocketOptions options)
     {
         // Create and setup SocketManager
+#if UNITY_EDITOR
+        this.manager = new SocketManager(new Uri(TestSocketURI), options);
+#else
         this.manager = new SocketManager(new Uri(SocketURI), options);
+#endif
 
         // Set subscriptions
         this.manager.Socket.On<ConnectResponse>(SocketIOEventTypes.Connect, OnConnected);
