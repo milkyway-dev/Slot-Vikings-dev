@@ -5453,6 +5453,8 @@ MonoBehaviour:
   FreeSpin_Text: {fileID: 1944824739}
   Scatter_Text: {fileID: 1967758357}
   Jackpot_Text: {fileID: 1448314178}
+  Bonus_Text: {fileID: 95511375}
+  Wild_Text: {fileID: 573019167}
   SettingsPopup_Object: {fileID: 103253977}
   SettingsExit_Button: {fileID: 1398599432}
   Sound_Button: {fileID: 377509777}
