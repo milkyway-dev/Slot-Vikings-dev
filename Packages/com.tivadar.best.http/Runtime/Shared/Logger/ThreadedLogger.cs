@@ -92,28 +92,28 @@ namespace Best.HTTP.Shared.Logger
 
         public ThreadedLogger()
         {
-            //this.Level = UnityEngine.Debug.isDebugBuild ? Loglevels.Warning : Loglevels.Error;
-            //this.Output = new UnityOutput();
+            this.Level = UnityEngine.Debug.isDebugBuild ? Loglevels.Warning : Loglevels.Error;
+            this.Output = new UnityOutput();
         }
 
         public void Verbose(string division, string msg, LoggingContext context) {
-            //AddJob(Loglevels.All, division, msg, null, context);
+            AddJob(Loglevels.All, division, msg, null, context);
         }
 
         public void Information(string division, string msg, LoggingContext context) {
-            //AddJob(Loglevels.Information, division, msg, null, context);
+            AddJob(Loglevels.Information, division, msg, null, context);
         }
 
         public void Warning(string division, string msg, LoggingContext context) {
-            //AddJob(Loglevels.Warning, division, msg, null, context);
+            AddJob(Loglevels.Warning, division, msg, null, context);
         }
 
         public void Error(string division, string msg, LoggingContext context) {
-            //AddJob(Loglevels.Error, division, msg, null, context);
+            AddJob(Loglevels.Error, division, msg, null, context);
         }
 
         public void Exception(string division, string msg, Exception ex, LoggingContext context) {
-            //AddJob(Loglevels.Exception, division, msg, ex, context);
+            AddJob(Loglevels.Exception, division, msg, ex, context);
         }
 
         private void AddJob(Loglevels level, string div, string msg, Exception ex, LoggingContext context)
