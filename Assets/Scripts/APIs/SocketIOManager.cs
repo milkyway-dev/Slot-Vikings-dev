@@ -52,8 +52,8 @@ public class SocketIOManager : MonoBehaviour
 
     private void Awake()
     {
-        HTTPManager.Logger.Level = Best.HTTP.Shared.Logger.Loglevels.None;
-        Debug.unityLogger.logEnabled = false;
+        //HTTPManager.Logger.Level = Best.HTTP.Shared.Logger.Loglevels.None;
+        //Debug.unityLogger.logEnabled = false;
         isLoaded = false;
     }
 

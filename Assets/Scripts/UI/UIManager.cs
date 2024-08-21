@@ -424,7 +424,7 @@ public class UIManager : MonoBehaviour
             }
             if (paylines.symbols[i].Name.ToUpper() == "SCATTER")
             {
-                if (Scatter_Text) Scatter_Text.text = "Scatter: Offers higher pay outs and awards " + paylines.symbols[i].Multiplier[0][1] + " free spins if 5 symbols align on the pay line with a multiplier.\nPayout: 5x - " + paylines.symbols[i].Multiplier[0][0] + ", 4x - " + paylines.symbols[i].Multiplier[1][0] + ", 3x - " + paylines.symbols[i].Multiplier[2][0];
+                if (Scatter_Text) Scatter_Text.text = "Scatter: Offers higher pay outs.\nPayout: 5x - " + paylines.symbols[i].Multiplier[0][0] + ", 4x - " + paylines.symbols[i].Multiplier[1][0]; 
             }
             if (paylines.symbols[i].Name.ToUpper() == "JACKPOT")
             {
