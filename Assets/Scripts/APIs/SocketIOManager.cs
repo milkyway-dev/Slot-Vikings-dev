@@ -61,6 +61,7 @@ public class SocketIOManager : MonoBehaviour
     {
         //OpenWebsocket();
         OpenSocket();
+        HTTPManager.Logger.Level = Best.HTTP.Shared.Logger.Loglevels.None;
     }
 
     void ReceiveAuthToken(string jsonData)
@@ -148,6 +149,7 @@ public class SocketIOManager : MonoBehaviour
 
     private void SetupSocketManager(SocketOptions options)
     {
+        HTTPManager.Logger.Level = Best.HTTP.Shared.Logger.Loglevels.None;
         // Create and setup SocketManager
 #if UNITY_EDITOR
         this.manager = new SocketManager(new Uri(TestSocketURI), options);
