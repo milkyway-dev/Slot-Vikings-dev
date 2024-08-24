@@ -38,7 +38,7 @@ public class SocketIOManager : MonoBehaviour
 
     protected string SocketURI = null;
     protected string TestSocketURI = "https://dev.casinoparadize.com";
-    //protected string SocketURI = "https://7p68wzhv-5000.inc1.devtunnels.ms/";
+    //protected string TestSocketURI = "https://7p68wzhv-5000.inc1.devtunnels.ms/";
 
     [SerializeField]
     private string testToken;
@@ -47,6 +47,8 @@ public class SocketIOManager : MonoBehaviour
 
     internal bool isLoaded = false;
 
+    internal bool SetInit = false;
+
     private const int maxReconnectionAttempts = 6;
     private readonly TimeSpan reconnectionDelay = TimeSpan.FromSeconds(10);
 
@@ -54,6 +56,7 @@ public class SocketIOManager : MonoBehaviour
     {
         //Debug.unityLogger.logEnabled = false;
         isLoaded = false;
+        SetInit = false;
     }
 
     private void Start()
@@ -280,15 +283,23 @@ public class SocketIOManager : MonoBehaviour
         {
             case "InitData":
                 {
-                    Debug.Log(jsonObject);
                     initialData = myData.message.GameData;
                     initUIData = myData.message.UIData;
                     playerdata = myData.message.PlayerData;
                     bonusdata = myData.message.BonusData;
-                    List<string> LinesString = ConvertListListIntToListString(initialData.Lines);
-                    List<string> InitialReels = ConvertListOfListsToStrings(initialData.Reel);
-                    InitialReels = RemoveQuotes(InitialReels);
-                    PopulateSlotSocket(InitialReels, LinesString);
+                    if (!SetInit)
+                    {
+                        Debug.Log(jsonObject);
+                        List<string> LinesString = ConvertListListIntToListString(initialData.Lines);
+                        List<string> InitialReels = ConvertListOfListsToStrings(initialData.Reel);
+                        InitialReels = RemoveQuotes(InitialReels);
+                        PopulateSlotSocket(InitialReels, LinesString);
+                        SetInit = true;
+                    }
+                    else
+                    {
+                        RefreshUI();
+                    }
                     break;
                 }
             case "ResultData":
@@ -302,6 +313,11 @@ public class SocketIOManager : MonoBehaviour
                     break;
                 }
         }
+    }
+
+    private void RefreshUI()
+    {
+        uiManager.InitialiseUIData(initUIData.AbtLogo.link, initUIData.AbtLogo.logoSprite, initUIData.ToULink, initUIData.PopLink, initUIData.paylines);
     }
 
     private void PopulateSlotSocket(List<string> slotPop, List<string> LineIds)
