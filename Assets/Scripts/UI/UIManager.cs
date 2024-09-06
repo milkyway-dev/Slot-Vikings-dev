@@ -325,10 +325,6 @@ public class UIManager : MonoBehaviour
         {
             OpenPopup(DisconnectPopup_Object);
         }
-        else
-        {
-            Application.ExternalCall("window.parent.postMessage", "onExit", "*");
-        }
     }
 
     internal void PopulateWin(int value, double amount)
