@@ -312,17 +312,22 @@ public class UIManager : MonoBehaviour
 
     internal void DisconnectionPopup(bool isReconnection)
     {
-        if(isReconnection)
+        //if(isReconnection)
+        //{
+        //    OpenPopup(ReconnectPopup_Object);
+        //}
+        //else
+        //{
+        //    ClosePopup(ReconnectPopup_Object);
+        //}
+
+        if (!isExit)
         {
-            OpenPopup(ReconnectPopup_Object);
+            OpenPopup(DisconnectPopup_Object);
         }
         else
         {
-            ClosePopup(ReconnectPopup_Object);
-            if (!isExit)
-            {
-                OpenPopup(DisconnectPopup_Object);
-            }
+            Application.ExternalCall("window.parent.postMessage", "onExit", "*");
         }
     }
 
@@ -450,10 +455,6 @@ public class UIManager : MonoBehaviour
         isExit = true;
         audioController.PlayButtonAudio();
         slotManager.CallCloseSocket();
-        DOVirtual.DelayedCall(0.2f, () =>
-        {
-            Application.ExternalCall("window.parent.postMessage", "onExit", "*");
-        });
     }
 
     private void OpenMenu()
