@@ -262,14 +262,11 @@ public class SocketIOManager : MonoBehaviour
     internal void CloseSocket()
     {
         SendDataWithNamespace("EXIT");
-        DOVirtual.DelayedCall(0.1f, () =>
+        if (this.manager != null)
         {
-            if (this.manager != null)
-            {
-                Debug.Log("Dispose my Socket");
-                this.manager.Close();
-            }
-        });
+            Debug.Log("Dispose my Socket");
+            this.manager.Close();
+        }
     }
 
     private void ParseResponse(string jsonObject)
