@@ -111,7 +111,7 @@ public class SocketIOManager : MonoBehaviour
         {
             return new
             {
-                token = myAuth,
+                token = testToken,
                 gameId = gameID
             };
         };
@@ -150,7 +150,6 @@ public class SocketIOManager : MonoBehaviour
 
         // Proceed with connecting to the server
         SetupSocketManager(options);
-        yield return null;
     }
 
     private void SetupSocketManager(SocketOptions options)
@@ -292,9 +291,6 @@ public class SocketIOManager : MonoBehaviour
                         InitialReels = RemoveQuotes(InitialReels);
                         PopulateSlotSocket(InitialReels, LinesString);
                         SetInit = true;
-                        #if UNITY_WEBGL && !UNITY_EDITOR
-                        delayHideLoadingScreen();
-                        #endif
                     }
                     else
                     {
@@ -341,6 +337,9 @@ public class SocketIOManager : MonoBehaviour
         slotManager.SetInitialUI();
 
         isLoaded = true;
+#if UNITY_WEBGL && !UNITY_EDITOR
+        delayHideLoadingScreen();
+#endif
     }
 
     internal void AccumulateResult(double currBet)
