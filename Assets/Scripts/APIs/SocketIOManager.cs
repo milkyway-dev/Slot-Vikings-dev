@@ -124,23 +124,23 @@ public class SocketIOManager : MonoBehaviour
     private IEnumerator WaitForAuthToken(SocketOptions options)
     {
         // Wait until myAuth is not null
-        // while (myAuth == null)
-        // {
-        //     Debug.Log("My Auth is null");
-        //     yield return null;
-        // }
-        // while (SocketURI == null)
-        // {
-        //     Debug.Log("My Socket is null");
-        //     yield return null;
-        // }
+        while (myAuth == null)
+        {
+            Debug.Log("My Auth is null");
+            yield return null;
+        }
+        while (SocketURI == null)
+        {
+            Debug.Log("My Socket is null");
+            yield return null;
+        }
         Debug.Log("My Auth is not null");
         // Once myAuth is set, configure the authFunction
         Func<SocketManager, Socket, object> authFunction = (manager, socket) =>
         {
             return new
             {
-                token = testToken,
+                token = myAuth,
                 gameId = gameID
             };
         };
@@ -150,17 +150,16 @@ public class SocketIOManager : MonoBehaviour
 
         // Proceed with connecting to the server
         SetupSocketManager(options);
-        yield return null;
     }
 
     private void SetupSocketManager(SocketOptions options)
     {
         // Create and setup SocketManager
-// #if UNITY_EDITOR
+#if UNITY_EDITOR
         this.manager = new SocketManager(new Uri(TestSocketURI), options);
-// #else
-//         this.manager = new SocketManager(new Uri(SocketURI), options);
-// #endif
+#else
+        this.manager = new SocketManager(new Uri(SocketURI), options);
+#endif
         // Set subscriptions
         this.manager.Socket.On<ConnectResponse>(SocketIOEventTypes.Connect, OnConnected);
         this.manager.Socket.On<string>(SocketIOEventTypes.Disconnect, OnDisconnected);
@@ -292,9 +291,6 @@ public class SocketIOManager : MonoBehaviour
                         InitialReels = RemoveQuotes(InitialReels);
                         PopulateSlotSocket(InitialReels, LinesString);
                         SetInit = true;
-                        #if UNITY_WEBGL && !UNITY_EDITOR
-                        delayHideLoadingScreen();
-                        #endif
                     }
                     else
                     {
@@ -341,6 +337,9 @@ public class SocketIOManager : MonoBehaviour
         slotManager.SetInitialUI();
 
         isLoaded = true;
+#if UNITY_WEBGL && !UNITY_EDITOR
+        delayHideLoadingScreen();
+#endif
     }
 
     internal void AccumulateResult(double currBet)
