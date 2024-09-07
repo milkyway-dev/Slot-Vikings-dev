@@ -5,6 +5,7 @@ mergeInto(LibraryManager.library, {
         loadingScreen.style.opacity = "0";
         loadingScreen.style.zIndex = "-1";
         loadingScreen.style.display = "none";
+        loadingScreen.remove();
     }
 });
 
