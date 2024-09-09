@@ -305,6 +305,11 @@ public class UIManager : MonoBehaviour
 
     }
 
+    public void ShowPopup()
+    {
+        OpenPopup(QuitPopup_Object);
+    }
+
     internal void LowBalPopup()
     {
         OpenPopup(LBPopup_Object);
