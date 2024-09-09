@@ -14,7 +14,6 @@ public class AudioController : MonoBehaviour
     [SerializeField] private AudioSource bg_audioBonus;
     [SerializeField] private AudioSource audioPlayer_Bonus;
 
-
     private void Start()
     {
         if (bg_adudio) bg_adudio.Play();
@@ -22,7 +21,7 @@ public class AudioController : MonoBehaviour
         audioSpin_button.clip = clips[clips.Length-2];
     }
 
-    private void OnApplicationFocus(bool focus)
+    internal void CheckFocusFunction(bool focus, bool IsSpinning)
     {
         if (!focus)
         {
@@ -32,9 +31,16 @@ public class AudioController : MonoBehaviour
         }
         else
         {
-            if (!bg_adudio.mute) bg_adudio.Play();
-            if (!audioPlayer_wl.mute) audioPlayer_wl.Play();
-            if (!audioPlayer_button.mute) audioPlayer_button.Play();
+            if (!bg_adudio.mute) bg_adudio.UnPause();
+            if (IsSpinning)
+            {
+                if (!audioPlayer_wl.mute) audioPlayer_wl.UnPause();
+            }
+            else
+            {
+                StopWLAaudio();
+            }
+            if (!audioPlayer_button.mute) audioPlayer_button.UnPause();
 
         }
     }
