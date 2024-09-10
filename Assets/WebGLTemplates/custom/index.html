@@ -118,18 +118,6 @@
         console.error = function() {};
     </script>
 
-    <script>
-    function showUnityPopup() {
-        // Call the Unity method to show the popup
-        gameInstance.SendMessage('UIManager', 'ShowPopup');
-    }
-
-    window.addEventListener('popstate', function(event) {
-        event.preventDefault();
-        showUnityPopup();
-    });
-</script>
-
 </body>
 
 </html>
