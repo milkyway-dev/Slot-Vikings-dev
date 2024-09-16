@@ -6,22 +6,24 @@ pipeline {
     stages {
         stage('Checkout Repository') {
             steps {
-                script {
-                    git branch: 'dev-build', credentialsId: 'github-cred', url: 'https://github.com/Prathm0025/Slot-Vikings-dev.git'
-                }
+                git branch: 'dev-build', credentialsId: 'github-cred', url: 'https://github.com/Prathm0025/Slot-Vikings-dev.git'
+            }
+        }
+
+        stage('List Files') {
+            steps {
+                sh 'ls -la'
+                sh 'ls -la .git/lfs'
             }
         }
 
         stage('Git LFS Pull') {
             steps {
-                sh """
-                    git lfs pull
-                    git add .
-                    ls
-                    git reset --hard
-                """
+                sh 'git lfs pull'
             }
         }
+    }
+}
 
         stage('Restore LFS Cache') {
             steps {
