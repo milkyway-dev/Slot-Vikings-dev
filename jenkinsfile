@@ -11,10 +11,14 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Git LFS Pull') {
             steps {
-                // Example build step
-                echo 'Building...'
+                sh """
+                    git lfs pull
+                    git add .
+                    ls
+                    git reset --hard
+                """
             }
         }
     }
