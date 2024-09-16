@@ -1,27 +1,12 @@
 pipeline {
     agent any
-
-    environment {
-        GIT_CREDENTIALS_ID = 'github-cred' // ID of your GitHub credentials
-    }
-
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the private GitHub repository
                 git(
-                    url: 'https://github.com/your-username/your-private-repo.git',
-                    credentialsId: "${env.GIT_CREDENTIALS_ID}"
+                    git branch: 'dev-build', url: 'https://github.com/Prathm0025/Slot-Vikings-dev.git'
                 )
             }
         }
-
-        // Add more stages as needed
-        stage('Build') {
-            steps {
-                // Example build step
-                echo 'Building...'
-            }
-        }
-    }
+}
 }
