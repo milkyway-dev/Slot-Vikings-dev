@@ -1,105 +1,27 @@
 pipeline {
     agent any
+
     environment {
-        GIT_CREDENTIALS_ID = 'github-cred'
+        GIT_CREDENTIALS_ID = 'github-cred' // ID of your GitHub credentials
     }
+
     stages {
-        stage('Checkout Repository') {
+        stage('Checkout') {
             steps {
-                git branch: 'dev-build', credentialsId: 'github-cred', url: 'https://github.com/Prathm0025/Slot-Vikings-dev.git'
+                // Checkout the private GitHub repository
+                git(
+                    url: 'https://github.com/your-username/your-private-repo.git',
+                    credentialsId: "${env.GIT_CREDENTIALS_ID}"
+                )
             }
         }
 
-        stage('List Files') {
+        // Add more stages as needed
+        stage('Build') {
             steps {
-                sh 'ls -la'
-                sh 'ls -la .git/lfs'
+                // Example build step
+                echo 'Building...'
             }
-        }
-
-        stage('Git LFS Pull') {
-            steps {
-                sh 'git lfs pull'
-            }
-        }
-
-        stage('Restore LFS Cache') {
-            steps {
-                cache(path: '.git/lfs', key: "${env.BUILD_ID}-lfs", restoreKeys: ['lfs']) {
-                    sh "echo Restored LFS cache"
-                }
-            }
-        }
-
-        stage('Verify LFS Cache') {
-            steps {
-                sh """
-                    echo "LFS cache directory contents:"
-                    ls -al .git/lfs || echo ".git/lfs directory does not exist"
-                """
-            }
-        }
-
-        stage('Create LFS File List') {
-            steps {
-                sh """
-                    git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
-                """
-            }
-        }
-
-        stage('Cache Unity Library') {
-            steps {
-                cache(path: 'Library', key: "${env.BUILD_ID}-Library", restoreKeys: ['Library']) {
-                    sh "echo Restored Unity Library cache"
-                }
-            }
-        }
-
-        stage('Verify Library Cache') {
-            steps {
-                sh """
-                    echo "Library directory contents:"
-                    ls -al Library || echo "Library directory does not exist"
-                """
-            }
-        }
-
-        stage('Build Unity Project') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'UNITY_LICENSE', passwordVariable: 'UNITY_LICENSE', usernameVariable: 'UNITY_EMAIL')]) {
-                    sh """
-                        unity-builder --targetPlatform ${TARGET_PLATFORM} --buildsPath ${BUILD_PATH} --allowDirtyBuild true
-                    """
-                }
-            }
-        }
-
-        stage('Upload Build Artifact') {
-            steps {
-                archiveArtifacts artifacts: "${BUILD_PATH}", allowEmptyArchive: true
-            }
-        }
-
-        stage('Commit and Push Build Result') {
-            steps {
-                sh """
-                    echo "Applying initial configs"
-                    sudo chown -R $USER:$USER ${BUILD_PATH}
-                    git config --global user.email "${GH_EMAIL}"
-                    git config --global user.name "${GH_USERNAME}"
-                    git add -f ${BUILD_PATH}/${TARGET_PLATFORM}
-                    git config advice.addIgnoredFile false
-                    git commit -m "Build"
-                    git push origin HEAD:dev-build --force
-                """
-            }
-        }
-    }
-
-    post {
-        always {
-            cleanWs() // Clean up workspace after build
         }
     }
 }
