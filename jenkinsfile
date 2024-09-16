@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        GIT_CREDENTIALS_ID = 'github-pat'
+        GIT_CREDENTIALS_ID = 'pat'
     }
     stages {
         stage('Checkout Repository') {
