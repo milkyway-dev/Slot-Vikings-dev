@@ -1,5 +1,7 @@
 pipeline {
     agent any
+    environment {
+        GIT_CREDENTIALS_ID = 'github-pat'
     stages {
         stage('Checkout Repository') {
             steps {
@@ -8,7 +10,7 @@ pipeline {
                     checkout([
                         $class: 'GitSCM', 
                         branches: [[name: '*/dev-build']], 
-                        userRemoteConfigs: [[url: 'https://github.com/Prathm0025/Slot-Vikings-dev.git']]
+                        userRemoteConfigs: [[url: 'https://github.com/Prathm0025/Slot-Vikings-dev.git',  credentialsId: "${env.GIT_CREDENTIALS_ID}]]
                     ])
                 }
             }
