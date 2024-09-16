@@ -7,15 +7,7 @@ pipeline {
         stage('Checkout Repository') {
             steps {
                 script {
-                    // Checkout the repository without LFS
-                    checkout([
-                        $class: 'GitSCM', 
-                        branches: [[name: '*/dev-build']], 
-                        userRemoteConfigs: [[
-                            url: 'https://github.com/Prathm0025/Slot-Vikings-dev.git', 
-                            credentialsId: "${env.GIT_CREDENTIALS_ID}"
-                        ]]
-                    ])
+                    git branch: 'dev-build', credentialsId: 'github-cred', url: 'https://github.com/Prathm0025/Slot-Vikings-dev.git'
                 }
             }
         }
