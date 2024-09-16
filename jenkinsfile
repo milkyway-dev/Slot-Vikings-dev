@@ -1,12 +1,22 @@
 pipeline {
     agent any
+
     stages {
         stage('Checkout') {
             steps {
                 git(
-                    git branch: 'dev-build', url: 'https://github.com/Prathm0025/Slot-Vikings-dev.git'
+                    url: 'https://github.com/Prathm0025/Slot-Vikings-dev.git',
+                    branch: 'dev-build'
                 )
             }
         }
+
+        stage('Build') {
+            steps {
+                // Example build step
+                echo 'Building...'
+            }
+        }
+    }
 }
-}
+
