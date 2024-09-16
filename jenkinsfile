@@ -22,8 +22,6 @@ pipeline {
                 sh 'git lfs pull'
             }
         }
-    }
-}
 
         stage('Restore LFS Cache') {
             steps {
