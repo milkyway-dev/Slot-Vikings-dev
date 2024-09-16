@@ -19,9 +19,6 @@ pipeline {
                 }
             }
         }
-    }
-}
-
 
         stage('Git LFS Pull') {
             steps {
