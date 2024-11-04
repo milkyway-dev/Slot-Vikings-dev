@@ -269,19 +269,34 @@ public class UIManager : MonoBehaviour
         if (SoundOff_Object) SoundOff_Object.SetActive(false);
 
         if (GameExit_Button) GameExit_Button.onClick.RemoveAllListeners();
-        if (GameExit_Button) GameExit_Button.onClick.AddListener(delegate { OpenPopup(QuitPopup_Object); });
+        if (GameExit_Button) GameExit_Button.onClick.AddListener(delegate { 
+            OpenPopup(QuitPopup_Object);
+            Debug.Log("Quit event: pressed Big_X button");
+            
+            });
 
         if (NoQuit_Button) NoQuit_Button.onClick.RemoveAllListeners();
-        if (NoQuit_Button) NoQuit_Button.onClick.AddListener(delegate { if (!isExit) { ClosePopup(QuitPopup_Object); } });
+        if (NoQuit_Button) NoQuit_Button.onClick.AddListener(delegate { if (!isExit) { 
+            ClosePopup(QuitPopup_Object); 
+            Debug.Log("quit event: pressed NO Button ");
+            } });
 
         if (CrossQuit_Button) CrossQuit_Button.onClick.RemoveAllListeners();
-        if (CrossQuit_Button) CrossQuit_Button.onClick.AddListener(delegate { if (!isExit) { ClosePopup(QuitPopup_Object); } });
+        if (CrossQuit_Button) CrossQuit_Button.onClick.AddListener(delegate { if (!isExit) { 
+            ClosePopup(QuitPopup_Object); 
+            Debug.Log("quit event: pressed Small_X Button ");
+            
+            } });
 
         if (LBExit_Button) LBExit_Button.onClick.RemoveAllListeners();
         if (LBExit_Button) LBExit_Button.onClick.AddListener(delegate { ClosePopup(LBPopup_Object); });
 
         if (YesQuit_Button) YesQuit_Button.onClick.RemoveAllListeners();
-        if (YesQuit_Button) YesQuit_Button.onClick.AddListener(CallOnExitFunction);
+        if (YesQuit_Button) YesQuit_Button.onClick.AddListener(delegate{
+            CallOnExitFunction();
+            Debug.Log("quit event: pressed YES Button ");
+            
+            });
 
         if (CloseDisconnect_Button) CloseDisconnect_Button.onClick.RemoveAllListeners();
         if (CloseDisconnect_Button) CloseDisconnect_Button.onClick.AddListener(CallOnExitFunction);
