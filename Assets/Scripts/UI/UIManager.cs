@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
-using System.Linq;
 using TMPro;
-using System;
 using UnityEngine.Networking;
 
 public class UIManager : MonoBehaviour
@@ -18,14 +16,7 @@ public class UIManager : MonoBehaviour
     private GameObject Menu_Object;
     [SerializeField]
     private RectTransform Menu_RT;
-
-    //[SerializeField]
-    //private Button About_Button;
-    //[SerializeField]
-    //private GameObject About_Object;
-    //[SerializeField]
-    //private RectTransform About_RT;
-
+    
     [Header("Settings UI")]
     [SerializeField]
     private Button Settings_Button;
@@ -118,14 +109,13 @@ public class UIManager : MonoBehaviour
     private GameObject WinPopup_Object;
     [SerializeField]
     private TMP_Text Win_Text;
+    [SerializeField] private Button SkipWinAnimation;
 
     [Header("FreeSpins Popup")]
     [SerializeField]
     private GameObject FreeSpinPopup_Object;
     [SerializeField]
     private TMP_Text Free_Text;
-    [SerializeField]
-    private Button FreeSpin_Button;
 
     [Header("Splash Screen")]
     [SerializeField]
@@ -190,51 +180,9 @@ public class UIManager : MonoBehaviour
     private bool isMusic = true;
     private bool isSound = true;
     private bool isExit = false;
-
-    private int FreeSpins;
-
-
-    private void Awake()
-    {
-        //if (Loading_Object) Loading_Object.SetActive(true);
-        //StartCoroutine(LoadingRoutine());
-        SimulateClickByDefault();
-    }
-
-    private IEnumerator LoadingRoutine()
-    {
-        StartCoroutine(LoadingTextAnimate());
-        float imageFill = 0f;
-        DOTween.To(() => imageFill, (val) => imageFill = val, 0.7f, 2f).OnUpdate(() =>
-        {
-            if (Loading_Image) Loading_Image.fillAmount = imageFill;
-            if (LoadPercent_Text) LoadPercent_Text.text = (100 * imageFill).ToString("f0") + "%";
-        });
-        yield return new WaitForSecondsRealtime(2);
-        yield return new WaitUntil(() => socketManager.isLoaded);
-        DOTween.To(() => imageFill, (val) => imageFill = val, 1, 1f).OnUpdate(() =>
-        {
-            if (Loading_Image) Loading_Image.fillAmount = imageFill;
-            if (LoadPercent_Text) LoadPercent_Text.text = (100 * imageFill).ToString("f0") + "%";
-        });
-        yield return new WaitForSecondsRealtime(1f);
-        if (Loading_Object) Loading_Object.SetActive(false);
-        StopCoroutine(LoadingTextAnimate());
-    }
-
-    private IEnumerator LoadingTextAnimate()
-    {
-        while (true)
-        {
-            if (Loading_Text) Loading_Text.text = "Loading.";
-            yield return new WaitForSeconds(1f);
-            if (Loading_Text) Loading_Text.text = "Loading..";
-            yield return new WaitForSeconds(1f);
-            if (Loading_Text) Loading_Text.text = "Loading...";
-            yield return new WaitForSeconds(1f);
-        }
-    }
-
+    private Tween WinPopupTextTween;
+    private Tween ClosePopupTween;
+    internal int FreeSpins;
     private void Start()
     {
 
@@ -304,9 +252,6 @@ public class UIManager : MonoBehaviour
         if (CloseAD_Button) CloseAD_Button.onClick.RemoveAllListeners();
         if (CloseAD_Button) CloseAD_Button.onClick.AddListener(CallOnExitFunction);
 
-        if (FreeSpin_Button) FreeSpin_Button.onClick.RemoveAllListeners();
-        if (FreeSpin_Button) FreeSpin_Button.onClick.AddListener(delegate{ StartFreeSpins(FreeSpins); });
-
         if (QuitSplash_button) QuitSplash_button.onClick.RemoveAllListeners();
         if (QuitSplash_button) QuitSplash_button.onClick.AddListener(delegate { OpenPopup(QuitPopup_Object); });
 
@@ -321,13 +266,8 @@ public class UIManager : MonoBehaviour
         if (Music_Button) Music_Button.onClick.RemoveAllListeners();
         if (Music_Button) Music_Button.onClick.AddListener(ToggleMusic);
 
-    }
-
-    private void SimulateClickByDefault()
-    {
-        Debug.Log("Awaken The Game...");
-        m_AwakeGameButton.onClick.AddListener(() => { Debug.Log("Called The Game..."); });
-        m_AwakeGameButton.onClick.Invoke();
+        if(SkipWinAnimation) SkipWinAnimation.onClick.RemoveAllListeners();
+        if(SkipWinAnimation) SkipWinAnimation.onClick.AddListener(SkipWin);
     }
 
     internal void LowBalPopup()
@@ -337,15 +277,6 @@ public class UIManager : MonoBehaviour
 
     internal void DisconnectionPopup(bool isReconnection)
     {
-        //if(isReconnection)
-        //{
-        //    OpenPopup(ReconnectPopup_Object);
-        //}
-        //else
-        //{
-        //    ClosePopup(ReconnectPopup_Object);
-        //}
-
         if (!isExit)
         {
             OpenPopup(DisconnectPopup_Object);
@@ -382,24 +313,42 @@ public class UIManager : MonoBehaviour
 
     internal void FreeSpinProcess(int spins)
     {
-        FreeSpins = spins;
-        if (FreeSpinPopup_Object) FreeSpinPopup_Object.SetActive(true);
-        if (Free_Text) Free_Text.text = spins.ToString() + " Free spins awarded.";
+        int ExtraSpins=spins-FreeSpins;
+        FreeSpins=spins;
+        Debug.Log(ExtraSpins);
+        if (FreeSpinPopup_Object) FreeSpinPopup_Object.SetActive(true);           
+        if (Free_Text) Free_Text.text = ExtraSpins.ToString() + " Free spins awarded.";
         if (MainPopup_Object) MainPopup_Object.SetActive(true);
+        DOVirtual.DelayedCall(2f, ()=>{
+            StartFreeSpins(spins);
+        });
+    }
+
+    void SkipWin(){
+        Debug.Log("Skip win called");
+        if(ClosePopupTween!=null){
+            ClosePopupTween.Kill();
+            ClosePopupTween=null;
+        }
+        if(WinPopupTextTween!=null){
+            WinPopupTextTween.Kill();
+            WinPopupTextTween=null;
+        }
+        ClosePopup(WinPopup_Object);
+        slotManager.CheckPopups = false;
     }
 
     private void StartPopupAnim(double amount)
     {
-        int initAmount = 0;
+        double initAmount = 0;
         if (WinPopup_Object) WinPopup_Object.SetActive(true);
         if (MainPopup_Object) MainPopup_Object.SetActive(true);
-
-        DOTween.To(() => initAmount, (val) => initAmount = val, (int)amount, 5f).OnUpdate(() =>
+        WinPopupTextTween = DOTween.To(() => initAmount, (val) => initAmount = val, amount, 5f).OnUpdate(() =>
         {
-            if (Win_Text) Win_Text.text = initAmount.ToString();
+            if (Win_Text) Win_Text.text = initAmount.ToString("F3");
         });
 
-        DOVirtual.DelayedCall(6f, () =>
+        ClosePopupTween = DOVirtual.DelayedCall(6f, () =>
         {
             ClosePopup(WinPopup_Object);
             slotManager.CheckPopups = false;
@@ -433,15 +382,15 @@ public class UIManager : MonoBehaviour
             string text = null;
             if (paylines.symbols[i].Multiplier[0][0] != 0)
             {
-                text += "5x - " + paylines.symbols[i].Multiplier[0][0];
+                text += "5x - " + paylines.symbols[i].Multiplier[0][0]+"x";
             }
             if (paylines.symbols[i].Multiplier[1][0] != 0)
             {
-                text += "\n4x - " + paylines.symbols[i].Multiplier[1][0];
+                text += "\n4x - " + paylines.symbols[i].Multiplier[1][0]+"x";
             }
             if (paylines.symbols[i].Multiplier[2][0] != 0)
             {
-                text += "\n3x - " + paylines.symbols[i].Multiplier[2][0];
+                text += "\n3x - " + paylines.symbols[i].Multiplier[2][0]+"x";
             }
             if (SymbolsText[i]) SymbolsText[i].text = text;
         }
