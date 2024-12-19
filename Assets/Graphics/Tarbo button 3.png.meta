@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 30a4626f6a7404b2293dae244b5757f3
+guid: 5a6bc0ab8f67946898a3114fb3c98cac
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -81,19 +81,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -108,6 +95,19 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -136,22 +136,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Plus Button_0
+      name: Tarbo button 3_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 11
-        width: 33
-        height: 33
+        x: 81
+        y: 522
+        width: 220
+        height: 220
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: edced5fef21d64f81bb4ddd88f0e2560
-      internalID: -1271348244
+      spriteID: f16ddef8aca994d1f8f9439fee120940
+      internalID: -424509588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tarbo button 3_1
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 272
+        width: 220
+        height: 220
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a123278466714f5699b57d034234a4d
+      internalID: 598920300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tarbo button 3_2
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 38
+        width: 220
+        height: 220
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac04a830c6c104a71a0afb910facb682
+      internalID: -1110839813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tarbo button 3_3
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 437
+        width: 298
+        height: 305
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d940d2d98876e44df909b0d4b7e42905
+      internalID: -1204495423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tarbo button 3_4
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 104
+        width: 298
+        height: 305
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6182c715c57f3446fa4fd8fada3f3e60
+      internalID: -1063708324
       vertices: []
       indices: 
       edges: []
@@ -167,7 +251,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Plus Button_0: -1271348244
+      Tarbo button 3_0: -424509588
+      Tarbo button 3_1: 598920300
+      Tarbo button 3_2: -1110839813
+      Tarbo button 3_3: -1204495423
+      Tarbo button 3_4: -1063708324
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

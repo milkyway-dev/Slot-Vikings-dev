@@ -37,13 +37,14 @@ public class SocketIOManager : MonoBehaviour
     internal JSHandler _jsManager;
 
     protected string SocketURI = null;
-    protected string TestSocketURI = "https://game-crm-rtp-backend.onrender.com/";
-    //protected string TestSocketURI = "https://7p68wzhv-5000.inc1.devtunnels.ms/";
+    // protected string TestSocketURI = "https://game-crm-rtp-backend.onrender.com/";
+    protected string TestSocketURI = "http://localhost:5001/";
 
     [SerializeField]
     private string testToken;
 
     protected string gameID = "SL-VIK";
+    // protected string gameID = "";
 
     internal bool isLoaded = false;
 
@@ -197,7 +198,7 @@ public class SocketIOManager : MonoBehaviour
 
     private void OnListenEvent(string data)
     {
-        Debug.Log("Received some_event with data: " + data);
+        // Debug.Log("Received some_event with data: " + data);
         ParseResponse(data);
     }
 
@@ -297,7 +298,7 @@ public class SocketIOManager : MonoBehaviour
                 }
             case "ResultData":
                 {
-                    Debug.Log(jsonObject);
+                    // Debug.Log(jsonObject);
                     myData.message.GameData.FinalResultReel = ConvertListOfListsToStrings(myData.message.GameData.ResultReel);
                     myData.message.GameData.FinalsymbolsToEmit = TransformAndRemoveRecurring(myData.message.GameData.symbolsToEmit);
                     resultData = myData.message.GameData;
