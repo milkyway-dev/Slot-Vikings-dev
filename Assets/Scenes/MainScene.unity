@@ -1848,6 +1848,7 @@ MonoBehaviour:
   rendererDelegate: {fileID: 96213513}
   useSharedMaterial: 1
   doLoopAnimation: 1
+  StartOnAwake: 0
   currentAnimationState: 0
   AnimationSpeed: 12
   delayBetweenLoop: 0
@@ -3429,6 +3430,7 @@ MonoBehaviour:
   rendererDelegate: {fileID: 205274874}
   useSharedMaterial: 1
   doLoopAnimation: 1
+  StartOnAwake: 0
   currentAnimationState: 0
   AnimationSpeed: 12
   delayBetweenLoop: 0
@@ -3599,6 +3601,7 @@ MonoBehaviour:
   rendererDelegate: {fileID: 237699786}
   useSharedMaterial: 1
   doLoopAnimation: 1
+  StartOnAwake: 0
   currentAnimationState: 0
   AnimationSpeed: 12
   delayBetweenLoop: 0
@@ -4393,6 +4396,7 @@ MonoBehaviour:
   rendererDelegate: {fileID: 283484775}
   useSharedMaterial: 1
   doLoopAnimation: 1
+  StartOnAwake: 0
   currentAnimationState: 0
   AnimationSpeed: 12
   delayBetweenLoop: 0
@@ -5031,6 +5035,7 @@ MonoBehaviour:
   rendererDelegate: {fileID: 370429536}
   useSharedMaterial: 1
   doLoopAnimation: 1
+  StartOnAwake: 0
   currentAnimationState: 0
   AnimationSpeed: 12
   delayBetweenLoop: 0
@@ -6355,6 +6360,7 @@ MonoBehaviour:
   rendererDelegate: {fileID: 505297411}
   useSharedMaterial: 1
   doLoopAnimation: 1
+  StartOnAwake: 0
   currentAnimationState: 0
   AnimationSpeed: 12
   delayBetweenLoop: 0
@@ -8288,6 +8294,7 @@ MonoBehaviour:
   rendererDelegate: {fileID: 624701455}
   useSharedMaterial: 1
   doLoopAnimation: 1
+  StartOnAwake: 0
   currentAnimationState: 0
   AnimationSpeed: 12
   delayBetweenLoop: 0
@@ -8458,6 +8465,7 @@ MonoBehaviour:
   rendererDelegate: {fileID: 643339790}
   useSharedMaterial: 1
   doLoopAnimation: 1
+  StartOnAwake: 0
   currentAnimationState: 0
   AnimationSpeed: 12
   delayBetweenLoop: 0
@@ -9138,6 +9146,7 @@ MonoBehaviour:
   rendererDelegate: {fileID: 665021683}
   useSharedMaterial: 1
   doLoopAnimation: 1
+  StartOnAwake: 0
   currentAnimationState: 0
   AnimationSpeed: 12
   delayBetweenLoop: 0
@@ -10362,6 +10371,7 @@ MonoBehaviour:
   rendererDelegate: {fileID: 761749616}
   useSharedMaterial: 1
   doLoopAnimation: 1
+  StartOnAwake: 0
   currentAnimationState: 0
   AnimationSpeed: 12
   delayBetweenLoop: 0
@@ -10778,13 +10788,14 @@ GameObject:
   - component: {fileID: 796307140}
   - component: {fileID: 796307139}
   - component: {fileID: 796307138}
+  - component: {fileID: 796307141}
   m_Layer: 5
   m_Name: Paytable_Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &796307137
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10801,7 +10812,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -752, y: -836}
+  m_AnchoredPosition: {x: -674.00006, y: -836}
   m_SizeDelta: {x: 120, y: 128}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &796307138
@@ -10886,6 +10897,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 796307136}
   m_CullTransparentMesh: 1
+--- !u!114 &796307141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 796307136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f3cdb2432f1242ab9ba58e3264daa2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &800850129
 GameObject:
   m_ObjectHideFlags: 0
@@ -11345,13 +11368,14 @@ GameObject:
   - component: {fileID: 836189149}
   - component: {fileID: 836189148}
   - component: {fileID: 836189147}
+  - component: {fileID: 836189150}
   m_Layer: 5
   m_Name: Settings_Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &836189146
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11368,7 +11392,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -752, y: -836}
+  m_AnchoredPosition: {x: -674, y: -686}
   m_SizeDelta: {x: 120, y: 128}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &836189147
@@ -11453,6 +11477,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 836189145}
   m_CullTransparentMesh: 1
+--- !u!114 &836189150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836189145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f3cdb2432f1242ab9ba58e3264daa2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &843893393
 GameObject:
   m_ObjectHideFlags: 0
@@ -16479,6 +16515,7 @@ MonoBehaviour:
   rendererDelegate: {fileID: 1244497404}
   useSharedMaterial: 1
   doLoopAnimation: 1
+  StartOnAwake: 0
   currentAnimationState: 0
   AnimationSpeed: 12
   delayBetweenLoop: 0
@@ -18056,6 +18093,7 @@ GameObject:
   - component: {fileID: 1368750699}
   - component: {fileID: 1368750698}
   - component: {fileID: 1368750701}
+  - component: {fileID: 1368750702}
   m_Layer: 5
   m_Name: TurboToggleButton
   m_TagString: Untagged
@@ -18079,7 +18117,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 753, y: -823}
+  m_AnchoredPosition: {x: 681, y: -823}
   m_SizeDelta: {x: 138.44, y: 116.26001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1368750698
@@ -18139,14 +18177,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.85882354, g: 0.85882354, b: 0.85882354, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1110839813, guid: 5a6bc0ab8f67946898a3114fb3c98cac, type: 3}
+  m_Sprite: {fileID: -424509588, guid: 5a6bc0ab8f67946898a3114fb3c98cac, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -18176,6 +18214,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f3cdb2432f1242ab9ba58e3264daa2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1368750702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368750696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d9ae1bf2ec654621a0c3eaff2a909fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textureArray:
+  - {fileID: 21300000, guid: 9a522c2c029244ac6b8aaf8cb0a415ff, type: 3}
+  - {fileID: 21300000, guid: a45ab232ae3c546308447f8ea90102b2, type: 3}
+  - {fileID: 21300000, guid: f95acc55b1ec042d08ee4eb908ace643, type: 3}
+  - {fileID: 21300000, guid: 35ea8d94e7d7b4d45912f2687bed10c2, type: 3}
+  - {fileID: 21300000, guid: b8e2f753f9e5a4231ae2e3a63d193e9c, type: 3}
+  - {fileID: 21300000, guid: 9f11bb2a497db4a59ae6a971a9a3db6d, type: 3}
+  - {fileID: 21300000, guid: f2fb45ce12ae5490197d4255da722626, type: 3}
+  - {fileID: 21300000, guid: 2fe15a26e33df4951a6c5dc8fe519e83, type: 3}
+  - {fileID: 21300000, guid: eacfc99515c554717bb09bacab908789, type: 3}
+  - {fileID: 21300000, guid: 57f3cc25dd85b4f088536802161c382e, type: 3}
+  - {fileID: 21300000, guid: 33c8995260b6449efbf8b25209010dda, type: 3}
+  - {fileID: 21300000, guid: bdf3ad46adef144e8a8f344683e97351, type: 3}
+  - {fileID: 21300000, guid: 13aa4e0d8a8ba4bc7a9b3a8763c42298, type: 3}
+  - {fileID: 21300000, guid: 70b5930342f6441f9b1e9ba1c2f2b809, type: 3}
+  - {fileID: 21300000, guid: 3289b5af1e4604c0c901a48534bbb887, type: 3}
+  - {fileID: 21300000, guid: 65fec95f62c45470abbbb3d628bf2aa1, type: 3}
+  - {fileID: 21300000, guid: d60a5e52734c24f8fada1f80cb47f88b, type: 3}
+  - {fileID: 21300000, guid: 4fa548dcd6c75422286f3366a50094b8, type: 3}
+  - {fileID: 21300000, guid: 1c79f471aceb8451b98ff740b10b61e2, type: 3}
+  - {fileID: 21300000, guid: f86a939c6746f4521ab04ad6b7f83584, type: 3}
+  - {fileID: 21300000, guid: 02fdcbf7c3542484ab573a6b9ee2e026, type: 3}
+  - {fileID: 21300000, guid: 4ae2d484894ae4f1fbf98bd8050aa44b, type: 3}
+  - {fileID: 21300000, guid: 6b4a3cd4bb0694637a84246560f1f340, type: 3}
+  - {fileID: 21300000, guid: d2b90620ea4bf4254944392fdd71967d, type: 3}
+  - {fileID: 21300000, guid: 769b56cccdab148b5b75fff21120f71f, type: 3}
+  - {fileID: 21300000, guid: f71f603a89f8744d893f58eff61b9e4c, type: 3}
+  - {fileID: 21300000, guid: a35d295fd792b4c198ed396153d245a7, type: 3}
+  - {fileID: 21300000, guid: e3340c68724fe41d098d5b3114757423, type: 3}
+  - {fileID: 21300000, guid: 6d88e29462aff4303b92135b922e9ef6, type: 3}
+  - {fileID: 21300000, guid: 538191df441a44385804135618ef7cd9, type: 3}
+  rendererDelegate: {fileID: 1368750699}
+  useSharedMaterial: 1
+  doLoopAnimation: 1
+  StartOnAwake: 0
+  currentAnimationState: 0
+  AnimationSpeed: 24
+  delayBetweenLoop: 0
 --- !u!1 &1383328942
 GameObject:
   m_ObjectHideFlags: 0
@@ -18642,6 +18730,7 @@ MonoBehaviour:
   rendererDelegate: {fileID: 1414168504}
   useSharedMaterial: 1
   doLoopAnimation: 1
+  StartOnAwake: 0
   currentAnimationState: 0
   AnimationSpeed: 12
   delayBetweenLoop: 0
@@ -19206,6 +19295,7 @@ MonoBehaviour:
   rendererDelegate: {fileID: 1478050144}
   useSharedMaterial: 1
   doLoopAnimation: 1
+  StartOnAwake: 0
   currentAnimationState: 0
   AnimationSpeed: 12
   delayBetweenLoop: 0
@@ -20260,6 +20350,7 @@ MonoBehaviour:
   rendererDelegate: {fileID: 1509630609}
   useSharedMaterial: 1
   doLoopAnimation: 1
+  StartOnAwake: 0
   currentAnimationState: 0
   AnimationSpeed: 12
   delayBetweenLoop: 0
@@ -23466,7 +23557,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1793761131
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25815,6 +25906,7 @@ MonoBehaviour:
   rendererDelegate: {fileID: 1927320608}
   useSharedMaterial: 1
   doLoopAnimation: 1
+  StartOnAwake: 0
   currentAnimationState: 0
   AnimationSpeed: 12
   delayBetweenLoop: 0
