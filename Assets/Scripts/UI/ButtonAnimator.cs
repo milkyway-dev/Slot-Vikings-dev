@@ -1,16 +1,19 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using DG.Tweening; // For DOTween
+using DG.Tweening;
+using UnityEngine.UI; // For DOTween
 
 public class ButtonAnimator : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     private Transform buttonTransform; // Assign the Button's transform in the Inspector.
+    private Button button;
     private float OrignalScale;
     private void OnValidate() {
         if (buttonTransform == null)
         {
             buttonTransform = transform; // Default to this GameObject's transform.
             OrignalScale=transform.localScale.x;
+            button = transform.GetComponent<Button>();
         }
     }
 
@@ -19,6 +22,7 @@ public class ButtonAnimator : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         {
             buttonTransform = transform; // Default to this GameObject's transform.
             OrignalScale=transform.localScale.x;
+            button = transform.GetComponent<Button>();
         }   
     }
 
@@ -26,14 +30,16 @@ public class ButtonAnimator : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public void OnPointerDown(PointerEventData eventData)
     {
         Debug.Log("Pointer Down");
-        PressedAnimation(buttonTransform);
+        if(button.interactable)
+            PressedAnimation(buttonTransform);
     }
 
     // Called when the button is released.
     public void OnPointerUp(PointerEventData eventData)
     {
         Debug.Log("Pointer Up");
-        OnClickedAnimation(buttonTransform);
+        if(button.interactable)
+            OnClickedAnimation(buttonTransform);
     }
 
     void PressedAnimation(Transform transform)
