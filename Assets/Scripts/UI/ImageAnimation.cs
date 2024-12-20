@@ -20,6 +20,7 @@ public class ImageAnimation : MonoBehaviour
 	public bool useSharedMaterial = true;
 
 	public bool doLoopAnimation = true;
+	[SerializeField] private bool StartOnAwake;
 
 	[HideInInspector]
 	public ImageState currentAnimationState;
@@ -39,6 +40,9 @@ public class ImageAnimation : MonoBehaviour
 		if (Instance == null)
 		{
 			Instance = this;
+		}
+		if(StartOnAwake){
+			StartAnimation();
 		}
 	}
 

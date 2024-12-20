@@ -186,11 +186,14 @@ public class SlotBehaviour : MonoBehaviour
     void TurboToggle(){
         if(IsTurboOn){
             IsTurboOn=false;
-            Turbo_Button.image.sprite=TurboToggleSprites[1];
+            Turbo_Button.GetComponent<ImageAnimation>().StopAnimation();
+            Turbo_Button.image.sprite=TurboToggleSprites[0];
+            Turbo_Button.image.color=new Color(0.86f,0.86f,0.86f,1);
         }
         else{
             IsTurboOn=true;
-            Turbo_Button.image.sprite=TurboToggleSprites[0];
+            Turbo_Button.GetComponent<ImageAnimation>().StartAnimation();
+            Turbo_Button.image.color=new Color(1,1,1,1);
         }
     }
 
