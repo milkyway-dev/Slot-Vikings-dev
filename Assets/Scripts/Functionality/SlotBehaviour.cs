@@ -278,10 +278,10 @@ public class SlotBehaviour : MonoBehaviour
         {
             uiManager.FreeSpins--;
             StartSlots(IsAutoSpin);
+            if (FSnum_text) FSnum_text.text = (spinchances - i).ToString();
             yield return tweenroutine;
             yield return new WaitForSeconds(SpinDelay);
             i++;
-            if (FSnum_text) FSnum_text.text = (spinchances - i).ToString();
         }
         if (FSBoard_Object) FSBoard_Object.SetActive(false);
         if(WasAutoSpinOn){
@@ -813,7 +813,7 @@ public class SlotBehaviour : MonoBehaviour
         if (AutoSpin_Button) AutoSpin_Button.interactable = toggle;
         if (TBetMinus_Button) TBetMinus_Button.interactable = toggle;
         if (TBetPlus_Button) TBetPlus_Button.interactable = toggle;
-        if(Turbo_Button) Turbo_Button.interactable = toggle;
+        // if(Turbo_Button) Turbo_Button.interactable = toggle;
     }
 
     //start the icons animation
