@@ -132,7 +132,7 @@ public class SlotBehaviour : MonoBehaviour
     private Coroutine FreeSpinRoutine = null;
     private Coroutine tweenroutine;
 
-    public bool IsAutoSpin = false;
+    internal bool IsAutoSpin = false;
     private bool IsFreeSpin = false;
     private bool IsSpinning = false;
     private bool CheckSpinAudio = false;
@@ -594,7 +594,6 @@ public class SlotBehaviour : MonoBehaviour
             {
                 yield return new WaitForSeconds(0.1f);
                 if(StopSpinToggle){
-                    StopSpinToggle=false;
                     break;
                 }
             }
@@ -603,10 +602,12 @@ public class SlotBehaviour : MonoBehaviour
 
         for (int i = 0; i < numberOfSlots; i++)
         {
-            yield return StopTweening(5, Slot_Transform[i], i);
+            yield return StopTweening(5, Slot_Transform[i], i, StopSpinToggle);
         }
+        StopSpinToggle=false;
 
-        yield return new WaitForSeconds(0.1f);
+        yield return alltweens[^1].WaitForCompletion();
+        KillAllTweens();
 
         if(SocketManager.playerdata.currentWining>0){
             SpinDelay=1.2f;
@@ -615,7 +616,6 @@ public class SlotBehaviour : MonoBehaviour
             SpinDelay=0.2f;
         }
         CheckPayoutLineBackend(SocketManager.resultData.linesToEmit, SocketManager.resultData.FinalsymbolsToEmit, SocketManager.resultData.jackpot);
-        KillAllTweens();
 
         CheckPopups = true;
 
@@ -850,12 +850,17 @@ public class SlotBehaviour : MonoBehaviour
 
 
 
-    private IEnumerator StopTweening(int reqpos, Transform slotTransform, int index)
+    private IEnumerator StopTweening(int reqpos, Transform slotTransform, int index, bool isStop)
     {
         alltweens[index].Pause();
         int tweenpos = (reqpos * IconSizeFactor) - IconSizeFactor;
         alltweens[index] = slotTransform.DOLocalMoveY(-tweenpos + 100, 0.5f).SetEase(Ease.OutElastic);
-        yield return new WaitForSeconds(0.2f);
+        if(!isStop){
+            yield return new WaitForSeconds(0.2f);
+        }
+        else{
+            yield return null;
+        }
     }
 
 
