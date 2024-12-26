@@ -315,7 +315,8 @@ public class UIManager : MonoBehaviour
     {
         int ExtraSpins=spins-FreeSpins;
         FreeSpins=spins;
-        Debug.Log(ExtraSpins);
+        Debug.Log("ExtraSpins: " +ExtraSpins);
+        Debug.Log("Total Spins: " +spins);
         if (FreeSpinPopup_Object) FreeSpinPopup_Object.SetActive(true);           
         if (Free_Text) Free_Text.text = ExtraSpins.ToString() + " Free spins awarded.";
         if (MainPopup_Object) MainPopup_Object.SetActive(true);

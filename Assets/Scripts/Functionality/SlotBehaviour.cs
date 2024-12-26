@@ -222,7 +222,6 @@ public class SlotBehaviour : MonoBehaviour
         if (IsAutoSpin)
         {
             IsAutoSpin = false;
-            WasAutoSpinOn=false;
             if (AutoSpinStop_Button) AutoSpinStop_Button.gameObject.SetActive(false);
             if (AutoSpin_Button) AutoSpin_Button.gameObject.SetActive(true);
             StartCoroutine(StopAutoSpinCoroutine());
@@ -280,8 +279,8 @@ public class SlotBehaviour : MonoBehaviour
         while (i < spinchances)
         {
             uiManager.FreeSpins--;
-            StartSlots(IsAutoSpin);
-            if (FSnum_text) FSnum_text.text = (spinchances - i).ToString();
+            if (FSnum_text) FSnum_text.text = uiManager.FreeSpins.ToString();
+            StartSlots();
             yield return tweenroutine;
             yield return new WaitForSeconds(SpinDelay);
             i++;
