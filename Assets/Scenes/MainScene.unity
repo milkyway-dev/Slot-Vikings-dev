@@ -6159,7 +6159,7 @@ MonoBehaviour:
   uiManager: {fileID: 377874625}
   bonusdata: []
   _jsManager: {fileID: 500036493}
-  testToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjI4NTgyNmUxNWVlNzkwZGY4MzQwNCIsInVzZXJuYW1lIjoidmFpYmhhdiIsInJvbGUiOiJwbGF5ZXIiLCJpYXQiOjE3MzQ0OTUyNjgsImV4cCI6MTczNTEwMDA2OH0.Zz8L7QgjHK-fxxXdocyQeYbg17dlhkZ9Z3T-V8YEi2g
+  testToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjI4NTgyNmUxNWVlNzkwZGY4MzQwNCIsInVzZXJuYW1lIjoidmFpYmhhdiIsInJvbGUiOiJwbGF5ZXIiLCJpYXQiOjE3MzUxODU3MzksImV4cCI6MTczNTc5MDUzOX0.RuYhqrY8jp5XzdNxPEVD9W9jbhZ1pfCKDo1KdBpup34
 --- !u!114 &500036493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28923,7 +28923,6 @@ MonoBehaviour:
   PayCalculator: {fileID: 963807277}
   TempList: []
   SocketManager: {fileID: 500036492}
-  IsAutoSpin: 0
   IconSizeFactor: 173
 --- !u!1 &2056920231
 GameObject:
