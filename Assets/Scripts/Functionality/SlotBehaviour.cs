@@ -131,13 +131,12 @@ public class SlotBehaviour : MonoBehaviour
     private Coroutine AutoSpinRoutine = null;
     private Coroutine FreeSpinRoutine = null;
     private Coroutine tweenroutine;
-
+    private Tween BalanceTween;
     internal bool IsAutoSpin = false;
     private bool IsFreeSpin = false;
     private bool IsSpinning = false;
     private bool CheckSpinAudio = false;
     internal bool CheckPopups = false;
-
     private int BetCounter = 0;
     private double currentBalance = 0;
     private double currentTotalBet = 0;
@@ -573,7 +572,6 @@ public class SlotBehaviour : MonoBehaviour
         
         SocketManager.AccumulateResult(BetCounter);
         yield return new WaitUntil(() => SocketManager.isResultdone);
-        yield return new WaitForSeconds(1f);
 
         for (int j = 0; j < SocketManager.resultData.ResultReel.Count; j++)
         {
@@ -620,7 +618,7 @@ public class SlotBehaviour : MonoBehaviour
         CheckPopups = true;
 
         if (TotalWin_text) TotalWin_text.text = SocketManager.playerdata.currentWining.ToString("F3");
-
+        BalanceTween?.Kill();
         if (Balance_text) Balance_text.text = SocketManager.playerdata.Balance.ToString("F3");
 
         currentBalance = SocketManager.playerdata.Balance;
@@ -698,7 +696,7 @@ public class SlotBehaviour : MonoBehaviour
 
         balance = balance - bet;
 
-        DOTween.To(() => initAmount, (val) => initAmount = val, balance, 0.8f).OnUpdate(() =>
+        BalanceTween=DOTween.To(() => initAmount, (val) => initAmount = val, balance, 0.8f).OnUpdate(() =>
         {
             if (Balance_text) Balance_text.text = initAmount.ToString("F3");
         });
