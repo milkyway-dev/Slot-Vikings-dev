@@ -92,7 +92,6 @@ public class SlotBehaviour : MonoBehaviour
     [SerializeField]
     private TMP_Text TotalWin_text;
 
-
     [Header("Audio Management")]
     [SerializeField]
     private AudioController audioController;
