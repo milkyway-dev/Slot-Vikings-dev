@@ -27,7 +27,6 @@ public class BonusController : MonoBehaviour
     private Transform Win_Transform;
     [SerializeField]
     private Transform Loose_Transform;
-
     internal bool isCollision = false;
 
     private Tween wheelRoutine;
@@ -50,27 +49,18 @@ public class BonusController : MonoBehaviour
         if (Win_Transform) Win_Transform.gameObject.SetActive(false);
         if (Loose_Transform) Loose_Transform.gameObject.SetActive(false);
         if (_audioManager) _audioManager.SwitchBGSound(true);
-        if(slotManager.IsAutoSpin){
-            if (Spin_Button) Spin_Button.interactable = false;
-            DOVirtual.DelayedCall(1f, ()=>{
-                if (Spin_Button) Spin_Button.interactable = true;
-                Spin_Button.onClick.Invoke();
-                if (Spin_Button) Spin_Button.interactable = false;
-            });
-        }
-        else{
-            if (Spin_Button) Spin_Button.interactable = true;
-        }
         stopIndex = stop;
         if (Bonus_Object) Bonus_Object.SetActive(true);
+        DOVirtual.DelayedCall(1f, ()=>{
+            Spinbutton();
+        });
     }
 
     private void Spinbutton()
     {
         isCollision = false;
-        if (Spin_Button) Spin_Button.interactable = false;
         RotateWheel();
-        DOVirtual.DelayedCall(1f, () =>
+        DOVirtual.DelayedCall(1.5f, () =>
         {
             TurnCollider(stopIndex);
         });
