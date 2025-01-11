@@ -91,7 +91,7 @@ jobs:
           git config --global user.email "${{ secrets.GH_EMAIL }}"
           git config --global user.name "${{ secrets.GH_USERNAME }}"
           if [ -f "./index.html" ] || [ -d "./Build" ]; then
-            git rm -rf index.html Build
+            git rm -rf index.html Build  || echo "there is no file"
           else
             echo "File ./index.html and Build folder do not exist, skipping removal."
           fi
