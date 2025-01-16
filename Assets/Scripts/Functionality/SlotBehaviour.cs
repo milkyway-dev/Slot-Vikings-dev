@@ -132,7 +132,7 @@ public class SlotBehaviour : MonoBehaviour
     private Coroutine tweenroutine;
     private Tween BalanceTween;
     internal bool IsAutoSpin = false;
-    private bool IsFreeSpin = false;
+    internal bool IsFreeSpin = false;
     private bool IsSpinning = false;
     private bool CheckSpinAudio = false;
     internal bool CheckPopups = false;
