@@ -29,7 +29,7 @@ public class ButtonAnimator : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     // Called when the button is pressed.
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("Pointer Down");
+        // Debug.Log("Pointer Down");
         if(button.interactable)
             PressedAnimation(buttonTransform);
     }
@@ -37,7 +37,7 @@ public class ButtonAnimator : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     // Called when the button is released.
     public void OnPointerUp(PointerEventData eventData)
     {
-        Debug.Log("Pointer Up");
+        // Debug.Log("Pointer Up");
         if(button.interactable)
             OnClickedAnimation(buttonTransform);
     }

@@ -165,7 +165,7 @@ public class SlotBehaviour : MonoBehaviour
         if (MaxBet_Button) MaxBet_Button.onClick.AddListener(MaxBet);
 
         if(StopSpin_Button) StopSpin_Button.onClick.RemoveAllListeners();
-        if(StopSpin_Button) StopSpin_Button.onClick.AddListener(()=> {StopSpinToggle=true; StopSpin_Button.gameObject.SetActive(false);});
+        if(StopSpin_Button) StopSpin_Button.onClick.AddListener(()=> {audioController.PlayButtonAudio(); StopSpinToggle=true; StopSpin_Button.gameObject.SetActive(false);});
 
         if (AutoSpin_Button) AutoSpin_Button.onClick.RemoveAllListeners();
         if (AutoSpin_Button) AutoSpin_Button.onClick.AddListener(AutoSpin);
@@ -182,6 +182,7 @@ public class SlotBehaviour : MonoBehaviour
     }
 
     void TurboToggle(){
+        audioController.PlayButtonAudio();
         if(IsTurboOn){
             IsTurboOn=false;
             Turbo_Button.GetComponent<ImageAnimation>().StopAnimation();
@@ -217,6 +218,7 @@ public class SlotBehaviour : MonoBehaviour
 
     private void StopAutoSpin()
     {
+        audioController.PlayButtonAudio();
         if (IsAutoSpin)
         {
             IsAutoSpin = false;
@@ -587,7 +589,7 @@ public class SlotBehaviour : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
         else{
-            for(int i=0;i<10;i++)
+            for(int i=0;i<5;i++)
             {
                 yield return new WaitForSeconds(0.1f);
                 if(StopSpinToggle){
@@ -849,7 +851,7 @@ public class SlotBehaviour : MonoBehaviour
 
     private IEnumerator StopTweening(int reqpos, Transform slotTransform, int index, bool isStop)
     {
-        alltweens[index].Pause();
+        alltweens[index].Kill();
         int tweenpos = (reqpos * IconSizeFactor) - IconSizeFactor;
         slotTransform.localPosition = new Vector2(slotTransform.localPosition.x, 0);
         alltweens[index] = slotTransform.DOLocalMoveY(-tweenpos + 100, 0.5f).SetEase(Ease.OutElastic);
