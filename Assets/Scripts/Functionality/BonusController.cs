@@ -72,6 +72,7 @@ public class BonusController : MonoBehaviour
     private void Spinbutton()
     {
         isCollision = false;
+        if (Spin_Button) Spin_Button.interactable = false;
         RotateWheel();
         DOVirtual.DelayedCall(1.5f, () =>
         {
