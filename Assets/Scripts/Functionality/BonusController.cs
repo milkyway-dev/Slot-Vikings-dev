@@ -27,6 +27,9 @@ public class BonusController : MonoBehaviour
     private Transform Win_Transform;
     [SerializeField]
     private Transform Loose_Transform;
+    [SerializeField]
+    private SocketIOManager m_SocketManager;
+
     internal bool isCollision = false;
 
     private Tween wheelRoutine;
@@ -51,9 +54,18 @@ public class BonusController : MonoBehaviour
         if (_audioManager) _audioManager.SwitchBGSound(true);
         stopIndex = stop;
         if (Bonus_Object) Bonus_Object.SetActive(true);
-        DOVirtual.DelayedCall(1f, ()=>{
-            Spinbutton();
-        });
+
+        if (slotManager.IsAutoSpin)
+        {
+            Spin_Button.gameObject.SetActive(false);
+            DOVirtual.DelayedCall(1f, () => {
+                Spinbutton();
+            });
+        }
+        else
+        {
+            Spin_Button.gameObject.SetActive(true);
+        }
     }
 
     private void Spinbutton()
@@ -76,7 +88,7 @@ public class BonusController : MonoBehaviour
             }
             else
             {
-                if (Bonus_Text[i]) Bonus_Text[i].text = bonusdata[i];
+                if (Bonus_Text[i]) Bonus_Text[i].text = (double.Parse(bonusdata[i]) * m_SocketManager.initialData.Bets[slotManager.BetCounter]).ToString();
             }
         }
     }

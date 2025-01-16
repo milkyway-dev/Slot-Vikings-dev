@@ -1300,6 +1300,7 @@ MonoBehaviour:
   PopupPanel: {fileID: 1795453357}
   Win_Transform: {fileID: 1445871275}
   Loose_Transform: {fileID: 699539022}
+  m_SocketManager: {fileID: 500036492}
 --- !u!1 &69310412
 GameObject:
   m_ObjectHideFlags: 0
@@ -6159,7 +6160,7 @@ MonoBehaviour:
   uiManager: {fileID: 377874625}
   bonusdata: []
   _jsManager: {fileID: 500036493}
-  testToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NzkxOTI3OTgxYmU0MzlkMjkyYjg4OSIsInVzZXJuYW1lIjoiTWVodWwiLCJyb2xlIjoicGxheWVyIiwiaWF0IjoxNzM2MjI1MDU2LCJleHAiOjE3MzY4Mjk4NTZ9.1Bd_WBYyoa0gsWXYQd0dzjYA0uGBGttan5sQCty_HbE
+  testToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZDgzZDdkYTI3YmY5MDI0NDNlYjRkZSIsInVzZXJuYW1lIjoiZGFyc2hhbiIsInJvbGUiOiJwbGF5ZXIiLCJpYXQiOjE3MzY5MzQ3NTEsImV4cCI6MTczNzUzOTU1MX0.Z29bH7Vzzxwfq_ft1yhZ9OtHCbmOOrypFA7zAWf_bSw
 --- !u!114 &500036493
 MonoBehaviour:
   m_ObjectHideFlags: 0
