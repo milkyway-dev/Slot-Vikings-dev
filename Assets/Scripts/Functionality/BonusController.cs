@@ -55,6 +55,7 @@ public class BonusController : MonoBehaviour
         PopulateWheel(m_SocketManager.bonusdata);
         stopIndex = stop;
         if (Bonus_Object) Bonus_Object.SetActive(true);
+        if (Spin_Button) Spin_Button.interactable = true;
 
         if (slotManager.IsAutoSpin || slotManager.IsFreeSpin)
         {
