@@ -52,10 +52,11 @@ public class BonusController : MonoBehaviour
         if (Win_Transform) Win_Transform.gameObject.SetActive(false);
         if (Loose_Transform) Loose_Transform.gameObject.SetActive(false);
         if (_audioManager) _audioManager.SwitchBGSound(true);
+        PopulateWheel(m_SocketManager.bonusdata);
         stopIndex = stop;
         if (Bonus_Object) Bonus_Object.SetActive(true);
 
-        if (slotManager.IsAutoSpin)
+        if (slotManager.IsAutoSpin || slotManager.IsFreeSpin)
         {
             Spin_Button.gameObject.SetActive(false);
             DOVirtual.DelayedCall(1f, () => {
@@ -89,6 +90,9 @@ public class BonusController : MonoBehaviour
             else
             {
                 if (Bonus_Text[i]) Bonus_Text[i].text = (double.Parse(bonusdata[i]) * m_SocketManager.initialData.Bets[slotManager.BetCounter]).ToString();
+                Debug.Log("Bonus Data: " + bonusdata[i]);
+                Debug.Log("Bet Data: " + m_SocketManager.initialData.Bets[slotManager.BetCounter]);
+                Debug.Log("Multiplied Form: " + (double.Parse(bonusdata[i]) * m_SocketManager.initialData.Bets[slotManager.BetCounter]).ToString());
             }
         }
     }
